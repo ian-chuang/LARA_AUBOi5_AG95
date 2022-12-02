@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: lara_description
+    relative_path: urdf/aubo_i5_pgc140.urdf.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/aubo_i5_pgc140.srdf
+  CONFIG:
+    author_name: Ian Chuang
+    author_email: itchuang@ucdavis.edu
+    generated_timestamp: 1669879418

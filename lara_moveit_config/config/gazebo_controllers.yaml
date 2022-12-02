@@ -1,0 +1,56 @@
+joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+
+aubo_i5_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - shoulder_joint
+    - upperArm_joint
+    - foreArm_joint
+    - wrist1_joint
+    - wrist2_joint
+    - wrist3_joint
+  gains:
+    shoulder_joint: {p: 4000,  d: 200, i: 1, i_clamp: 1}
+    upperArm_joint: {p: 10000,  d: 200, i: 1, i_clamp: 1}
+    foreArm_joint: {p: 2000,  d: 20, i: 1, i_clamp: 1}
+    wrist1_joint: {p: 500,  d: 1, i: 1, i_clamp: 1}
+    wrist2_joint: {p: 500,  d: 1, i: 1, i_clamp: 1}
+    wrist3_joint: {p: 10,  d: 0.1, i: 0, i_clamp: 1} 
+  state_publish_rate: 25
+
+pgc140_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - finger1_joint
+  gains:
+    finger1_joint: {p: 0.0,  i: 0.00, d: 0.0, i_clamp: 1}
+  state_publish_rate: 25
+
+gazebo_ros_control:
+  pid_gains:
+    # shoulder_joint: {p: 4000,  d: 200, i: 1, i_clamp: 1}
+    # upperArm_joint: {p: 10000,  d: 200, i: 1, i_clamp: 1}
+    # foreArm_joint: {p: 2000,  d: 20, i: 1, i_clamp: 1}
+    # wrist1_joint: {p: 500,  d: 1, i: 1, i_clamp: 1}
+    # wrist2_joint: {p: 500,  d: 1, i: 1, i_clamp: 1}
+    # wrist3_joint: {p: 10,  d: 0.1, i: 0, i_clamp: 1} 
+
+    # finger1_joint: {p: 100.0, i: 0.01, d: 10.0}
+    # the following gains are used by the gazebo_mimic_joint plugin
+    finger1_joint:
+      p: 20.0
+      i: 0.1
+      d: 0.0
+      i_clamp: 0.2
+      antiwindup: false
+      publish_state: true
+    finger2_joint:
+      p: 20.0
+      i: 0.1
+      d: 0.0
+      i_clamp: 0.2
+      antiwindup: false
+      publish_state: true
+

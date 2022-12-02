@@ -117,7 +117,7 @@
 
     <!--/////////////////////////////// BASE_LINK ////////////////////////////////////-->
    
-   <link name="base_link">
+   <link name="aubo_i5_base_link">
     <inertial>
       <origin xyz="-1.4795E-13 0.0015384 0.020951" rpy="0 0 0" />
       <mass value="0.83419" />
@@ -166,7 +166,7 @@
   <!--/////////////////////////////// SHOULDER_JOINT ////////////////////////////////////-->
   <joint name="shoulder_joint" type="revolute">
     <origin xyz="0 0 0.122" rpy="0 0 3.1416" />
-    <parent link="base_link" />
+    <parent link="aubo_i5_base_link" />
     <child link="shoulder_Link" />
     <axis xyz="0 0 1" />
     <limit lower="-3.04" upper="3.04" effort="300" velocity="100" />
@@ -343,6 +343,7 @@
        </joint>
        <actuator name="${joint_name}_motor">
          <mechanicalReduction>1</mechanicalReduction>
+         <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
        </actuator>
      </transmission>
  </xacro:macro>
@@ -358,12 +359,7 @@
 
 
 
-  <!-- ros_control plugin -->
-  <gazebo>
-      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-          <robotNamespace>/aubo_i5</robotNamespace>
-      </plugin>
-  </gazebo>
+  
 
 
 </xacro:macro>

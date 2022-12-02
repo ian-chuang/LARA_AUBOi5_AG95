@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(aubo_i5_pgc140)
+project(lara_description)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -100,7 +100,7 @@ find_package(catkin REQUIRED)
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES aubo_i5_pgc140
+#  LIBRARIES lara_description
 #  CATKIN_DEPENDS other_catkin_pkg
 #  DEPENDS system_lib
 )
@@ -118,7 +118,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/aubo_i5_pgc140.cpp
+#   src/${PROJECT_NAME}/lara_description.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -129,7 +129,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/aubo_i5_pgc140_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/lara_description_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -193,7 +193,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_aubo_i5_pgc140.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_lara_description.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

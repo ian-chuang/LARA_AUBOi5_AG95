@@ -1,0 +1,21 @@
+<launch>
+  <arg
+    name="model" />
+  <param  
+    name="robot_description" 
+    command="xacro --inorder  '$(find lara_description)/urdf/aubo_i5_pgc140.urdf.xacro'"/>
+  <node
+    name="joint_state_publisher_gui"
+    pkg="joint_state_publisher_gui"
+    type="joint_state_publisher_gui" />
+  <node
+    name="robot_state_publisher"
+    pkg="robot_state_publisher"
+    type="robot_state_publisher" />
+  <node
+    name="rviz"
+    pkg="rviz"
+    type="rviz"
+    args="-d $(find lara_description)/launch/aubo_i5_pgc140.rviz" 
+    />
+</launch>
