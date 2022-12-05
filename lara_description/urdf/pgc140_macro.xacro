@@ -102,7 +102,7 @@
     <limit
       lower="0"
       upper="0.025"
-      effort="140"
+      effort="1000"
       velocity="1" />
   </joint>
   <link
@@ -160,7 +160,7 @@
     <limit
       lower="0"
       upper="0.025"
-      effort="140"
+      effort="1000"
       velocity="1" />
     <mimic
       joint="finger1_joint"
@@ -173,11 +173,11 @@
   <transmission name="finger1_trans">
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="finger1_joint">
-          <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+          <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       </joint>
       <actuator name="finger1_motor">
           <mechanicalReduction>1</mechanicalReduction>
-          <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+          <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       </actuator>
   </transmission>
 
@@ -204,15 +204,33 @@
 
   <xacro:mimic_joint_plugin_gazebo name_prefix="finger2_joint"
     parent_joint="finger1_joint" mimic_joint="finger2_joint"
-    has_pid="true" multiplier="1.0" max_effort="10.0" />
-
-<!-- 
-  <gazebo>
-    <plugin filename="libroboticsgroup_upatras_gazebo_mimic_joint_plugin.so" name="mimicker">
-      <joint>finger1_joint</joint>
-      <mimicJoint>finger2_joint</mimicJoint>
-    </plugin>
-  </gazebo> -->
+    has_pid="true" multiplier="1.0" max_effort="1000.0" />
 
   </xacro:macro>
+
+  <gazebo reference="finger1_link">
+  <material>Gazebo/Red</material>
+    <mu1>1000000.0</mu1>
+    <mu2>1000000.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>100000.0</kd>
+    <minDepth>0.003</minDepth>  
+   <maxVel>0</maxVel>  
+   <slip1>0</slip1>
+    <slip2>0</slip2>
+  </gazebo>
+
+  <gazebo reference="finger2_link">
+  <material>Gazebo/Red</material>
+    <mu1>1000000.0</mu1>
+    <mu2>1000000.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>100000.0</kd>
+    <minDepth>0.003</minDepth>  
+   <maxVel>0</maxVel>  
+   <slip1>0</slip1>
+    <slip2>0</slip2>
+  </gazebo>
+
+
 </robot>

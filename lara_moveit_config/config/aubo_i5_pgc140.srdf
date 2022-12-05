@@ -27,11 +27,11 @@
         <joint name="finger2_joint" value="0" />
     </group_state>
     <group_state name="home" group="arm">
-        <joint name="foreArm_joint" value="0" />
+        <joint name="foreArm_joint" value="1.5708" />
         <joint name="shoulder_joint" value="0" />
         <joint name="upperArm_joint" value="0" />
         <joint name="wrist1_joint" value="0" />
-        <joint name="wrist2_joint" value="0" />
+        <joint name="wrist2_joint" value="1.5708" />
         <joint name="wrist3_joint" value="0" />
     </group_state>
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
@@ -41,6 +41,7 @@
     <!--PASSIVE JOINT: Purpose: this element is used to mark joints that are not actuated-->
     <passive_joint name="finger2_joint" />
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
+    <disable_collisions link1="aubo_i5_base_link" link2="ground" reason="Adjacent" />
     <disable_collisions link1="aubo_i5_base_link" link2="shoulder_Link" reason="Adjacent" />
     <disable_collisions link1="aubo_i5_base_link" link2="upperArm_Link" reason="Never" />
     <disable_collisions link1="ee_link" link2="finger1_link" reason="Never" />
@@ -60,6 +61,7 @@
     <disable_collisions link1="finger2_link" link2="wrist3_Link" reason="Never" />
     <disable_collisions link1="foreArm_Link" link2="upperArm_Link" reason="Adjacent" />
     <disable_collisions link1="foreArm_Link" link2="wrist1_Link" reason="Adjacent" />
+    <disable_collisions link1="ground" link2="shoulder_Link" reason="Never" />
     <disable_collisions link1="pgc140_base_link" link2="wrist1_Link" reason="Never" />
     <disable_collisions link1="pgc140_base_link" link2="wrist2_Link" reason="Never" />
     <disable_collisions link1="pgc140_base_link" link2="wrist3_Link" reason="Default" />

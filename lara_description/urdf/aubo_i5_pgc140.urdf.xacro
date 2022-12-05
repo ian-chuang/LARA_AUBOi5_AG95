@@ -41,16 +41,39 @@
   <joint name="gripper_tip_link_joint" type="fixed">
     <parent link="ee_link"/>
     <child link="gripper_tip_link"/>
-    <origin rpy="0 0 0" xyz="0.163 0 0"/>
+    <origin rpy="0 0 0" xyz="0.13345 0 0"/>
   </joint>
 
 
+  
+
+
+
+
+  <link name="ground">
+      <collision>
+          <origin rpy="0 0 0" xyz="0 0 -0.01"/>
+          <geometry>
+              <box size="5 5 0.02" />
+          </geometry>
+      </collision>
+  </link>
+  <joint name="ground_to_world" type="fixed">
+      <parent link="world"/>
+      <child link="ground"/>
+      <origin xyz="0 0 0" />
+  </joint>
+
   <link name="world" />
-  <joint name="world_joint" type="fixed">
+  <joint name="aubo_to_world" type="fixed">
     <parent link="world" />
     <child link = "aubo_i5_base_link" />
     <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
   </joint>
+
+    
+
+
 
 
   <!-- ros_control plugin -->
