@@ -1,11 +1,11 @@
 moveit_setup_assistant_config:
   URDF:
     package: lara_description
-    relative_path: urdf/aubo_i5_pgc140.urdf.xacro
+    relative_path: urdf/lara_base_scene.xacro
     xacro_args: ""
   SRDF:
-    relative_path: config/aubo_i5_pgc140.srdf
+    relative_path: config/lara_base_scene.srdf
   CONFIG:
     author_name: Ian Chuang
     author_email: itchuang@ucdavis.edu
-    generated_timestamp: 1670139844
+    generated_timestamp: 1670881601

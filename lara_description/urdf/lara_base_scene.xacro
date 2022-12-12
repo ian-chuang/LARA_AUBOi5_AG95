@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro"
+  name="lara_base_scene">
+
+  <xacro:include filename="$(find aubo_description)/urdf/aubo_i5_macro.xacro" />
+  <xacro:include filename="$(find dh_ag95_description)/urdf/ag95_macro.xacro" />
+
+
+  <xacro:aubo_i5 prefix="" parent="world" hw_interface="hardware_interface/EffortJointInterface" >
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:aubo_i5>
+
+  <xacro:dh_ag95_gripper prefix="" parent="ee_link" transmission_hw_interface="hardware_interface/EffortJointInterface" >
+    <origin xyz="0 0 0" rpy="${pi/2}  ${pi} ${pi/2}" />
+  </xacro:dh_ag95_gripper>
+  
+
+  <!-- Add an additional link to plan with. Oriented like the aubo_i5 ee_link frame. -->
+  <link name="gripper_tip_link" />
+  <joint name="gripper_tip_link_joint" type="fixed">
+    <parent link="ee_link" />
+    <child link="gripper_tip_link" />
+    <origin rpy="0 0 0" xyz="0.2 0 0" />
+  </joint>
+
+
+  <link name="world" />
+  <link name="ground">
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 -0.01" />
+      <geometry>
+        <box size="5 5 0.02" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="ground_to_world" type="fixed">
+    <parent link="world" />
+    <child link="ground" />
+    <origin xyz="0 0 0" />
+  </joint>
+
+  
+
+
+  <!-- ros_control plugin -->
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so"></plugin>
+  </gazebo>
+
+</robot>

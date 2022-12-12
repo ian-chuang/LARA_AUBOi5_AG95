@@ -3,7 +3,7 @@
     name="model" />
   <param  
     name="robot_description" 
-    command="xacro --inorder  '$(find lara_description)/urdf/aubo_i5_pgc140.urdf.xacro'"/>
+    command="xacro --inorder  '$(find lara_description)/urdf/lara_base_scene.xacro'"/>
   <node
     name="joint_state_publisher_gui"
     pkg="joint_state_publisher_gui"
@@ -16,6 +16,6 @@
     name="rviz"
     pkg="rviz"
     type="rviz"
-    args="-d $(find lara_description)/launch/aubo_i5_pgc140.rviz" 
+    args="-d $(find lara_description)/launch/urdf.rviz" 
     />
 </launch>

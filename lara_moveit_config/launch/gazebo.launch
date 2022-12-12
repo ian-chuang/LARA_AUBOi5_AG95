@@ -2,7 +2,7 @@
 <launch>
   <arg name="paused" default="false"/>
   <arg name="gazebo_gui" default="true"/>
-  <arg name="urdf_path" default="$(find lara_description)/urdf/aubo_i5_pgc140.urdf.xacro"/>
+  <arg name="urdf_path" default="$(find lara_description)/urdf/lara_base_scene.xacro"/>
 
   <!-- startup simulated world -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -12,7 +12,7 @@
   </include>
 
   <!-- send robot urdf to param server -->
-  <param name="robot_description" command="xacro  '$(arg urdf_path)'" />
+  <param name="robot_description" command="xacro '$(arg urdf_path)'" />
 
   <!-- push robot_description to factory and spawn robot in gazebo at the origin, change x,y,z arguments to spawn in a different position -->
   <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot -x 0 -y 0 -z 0"
@@ -22,9 +22,6 @@
   <rosparam file="$(find lara_moveit_config)/config/gazebo_controllers.yaml" command="load"/>
   <!-- Spawn Gazebo ROS controllers -->
   <node name="gazebo_controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"
-		args="joint_state_controller aubo_i5_controller pgc140_controller"/>
-
-  <!-- Load ROS controllers -->
-  <!-- <include file="$(dirname)/ros_controllers.launch"/> -->
+		args="joint_state_controller arm_controller gripper_controller"/>
 
 </launch>

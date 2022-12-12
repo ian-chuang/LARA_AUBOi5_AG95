@@ -54,14 +54,14 @@
   <!-- Trajectory Execution Functionality -->
   <include ns="move_group" file="$(find lara_moveit_config)/launch/trajectory_execution.launch.xml" if="$(arg allow_trajectory_execution)">
     <arg name="moveit_manage_controllers" value="true" />
-    <arg name="moveit_controller_manager" value="aubo_i5_pgc140" unless="$(arg fake_execution)"/>
+    <arg name="moveit_controller_manager" value="lara_base_scene" unless="$(arg fake_execution)"/>
     <arg name="moveit_controller_manager" value="fake" if="$(arg fake_execution)"/>
     <arg name="fake_execution_type" value="$(arg fake_execution_type)" />
   </include>
 
   <!-- Sensors Functionality -->
   <include ns="move_group" file="$(find lara_moveit_config)/launch/sensor_manager.launch.xml" if="$(arg allow_trajectory_execution)">
-    <arg name="moveit_sensor_manager" value="aubo_i5_pgc140" />
+    <arg name="moveit_sensor_manager" value="lara_base_scene" />
   </include>
 
   <!-- Start the actual move_group node/action server -->

@@ -49,6 +49,7 @@ class Manipulation:
         joint_goal = self.gripper.get_current_joint_values()
         joint_goal[0] = val
 
+        print(joint_goal)
         self.gripper.set_joint_value_target(joint_goal)
 
         plan = self.gripper.plan()
@@ -91,8 +92,12 @@ if __name__ == '__main__':
     manip = Manipulation()
     eef_link = manip.arm.get_end_effector_link()
 
-    rate = rospy.Rate(2)
+    pose = create_pose(0.4, 0.0, 0.1, 0.0, pi/2, 0.0)
+    manip.move_to_pose(pose)
 
+    manip.move_gripper(0)
+
+    rate = rospy.Rate(2)
 
     rate.sleep()
     pose = create_pose(0.4, 0, 0.01, 0, 0, 0, header=True)
@@ -113,7 +118,7 @@ if __name__ == '__main__':
     manip.scene.attach_box(eef_link, 'cube', touch_links=touch_links)
     rate.sleep()
 
-    manip.move_gripper(0.025)
+    manip.move_gripper(0.65)
 
     pose = create_pose(0.4, 0.0, 0.2, 0.0, pi/2, 0.0)
     manip.move_cartesian_path(pose)
