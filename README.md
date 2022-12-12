@@ -1,6 +1,6 @@
-# LARA_Aubo_i5_PGC140
+# LARA_AUBOi5_AG95
 
-ROS packages for running Aubo i5 with DH Robotics PGC140 gripper with Moveit and Gazebo.
+ROS packages for running Aubo i5 with DH Robotics AG95 gripper with Moveit and Gazebo.
 
 ### Tutorial
 ---
