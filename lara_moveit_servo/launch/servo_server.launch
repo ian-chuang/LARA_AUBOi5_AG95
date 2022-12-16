@@ -1,0 +1,10 @@
+<launch>
+    <node name="servo_server" pkg="moveit_servo" type="servo_server" output="screen">
+        <rosparam command="load" file="$(find lara_moveit_servo)/config/aubo_i5_simulated_config.yaml" />
+    </node>
+
+    <!-- <arg name="teleop_config" default="$(find moveit_servo)/config/spacenav_via_teleop_tools.yaml" /> -->
+
+
+
+</launch>

@@ -23,7 +23,7 @@
 
   <!-- Gazebo specific options -->
   <arg name="gazebo_gui" default="true"/>
-  <arg name="paused" default="false"/>
+  <arg name="paused" default="true"/>
   <!-- By default, use the urdf location provided from the package -->
   <arg name="urdf_path" default="$(find lara_description)/urdf/lara_base_scene.xacro"/>
 

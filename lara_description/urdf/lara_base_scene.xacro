@@ -6,11 +6,11 @@
   <xacro:include filename="$(find dh_ag95_description)/urdf/ag95_macro.xacro" />
 
 
-  <xacro:aubo_i5 prefix="" parent="world" hw_interface="hardware_interface/EffortJointInterface" >
+  <xacro:aubo_i5 prefix="" parent="world" hw_interface="hardware_interface/PositionJointInterface" >
     <origin xyz="0 0 0" rpy="0 0 0" />
   </xacro:aubo_i5>
 
-  <xacro:dh_ag95_gripper prefix="" parent="ee_link" transmission_hw_interface="hardware_interface/EffortJointInterface" >
+  <xacro:dh_ag95_gripper prefix="" parent="ee_link" transmission_hw_interface="hardware_interface/PositionJointInterface" >
     <origin xyz="0 0 0" rpy="${pi/2}  ${pi} ${pi/2}" />
   </xacro:dh_ag95_gripper>
   

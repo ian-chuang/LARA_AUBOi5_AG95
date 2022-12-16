@@ -1,0 +1,14 @@
+teleop:
+  move:
+    type: topic
+    message_type: geometry_msgs/Twist
+    topic_name: /servo_server/delta_twist_cmds
+    axis_mappings:
+      -
+        axis: 1
+        target: linear.x
+        scale: 1.0
+      -
+        axis: 2
+        target: linear.z
+        scale: 1.0

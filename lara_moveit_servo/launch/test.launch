@@ -1,0 +1,14 @@
+<launch>
+
+
+    <!-- <arg name="teleop_config" default="$(find moveit_servo)/config/spacenav_via_teleop_tools.yaml" /> -->
+
+    <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="keyboard_teleop" output="screen">
+        <param name="stamped" value="True"/>
+        <param name="frame_id" value="world"/>
+    </node>
+
+    <node pkg="lara_moveit_servo" type="test.py" name="convert">
+    </node>
+
+</launch>
