@@ -8,13 +8,24 @@ ROS packages for running Aubo i5 with DH Robotics AG95 gripper with Moveit and G
 * Clone these into the src folder of your ROS workspace:
 
   ```
+  mkdir -p ~/catkin_ws/src
+  
+  # Clone packages
   cd ~/catkin_ws/src
-  git clone https://github.com/ian-chuang/LARA_Aubo_i5_PGC140.git
+  git clone https://github.com/ian-chuang/LARA_AUBOi5_AG95.git
   git clone https://github.com/ian-chuang/dh_gripper_ros.git
-  git clone https://github.com/AuboRobot/aubo_robot.git -b melodic
+  git clone https://github.com/ian-chuang/aubo_robot.git -b melodic
+  git clone https://github.com/ian-chuang/oculus_reader.git
   git clone https://github.com/roboticsgroup/roboticsgroup_gazebo_plugins.git
   rosdep install -y --from-paths . --ignore-src --rosdistro melodic
   
+  # Add aubo dependencies to path
+  cd ~/catkin_ws/src
+  sudo ln -s aubo_robot/aubo_driver/lib/lib64/config/libconfig.so.11 /usr/lib/libconfig.so.11
+  sudo ln -s aubo_robot/aubo_driver/lib/lib64/log4cplus/liblog4cplus-1.2.so.5.1.4 /usr/lib/liblog4cplus-1.2.so.5
+  sudo ldconfig
+  
+  # Build
   cd ~/catkin_ws
   catkin build
   source devel/setup.bash
@@ -22,14 +33,45 @@ ROS packages for running Aubo i5 with DH Robotics AG95 gripper with Moveit and G
   
 * Fix random bugs when building (Let me know if you have trouble)
 
-* To run:
+* Setup Meta Quest 2 Teleop: follow instructions here https://github.com/ian-chuang/oculus_reader/blob/main/README.md
+
+* To run simulation and MoveIt:
 
   ```
+  # launch simulation and moveit 
   roslaunch lara_moveit_config demo_gazebo.launch
+  
+  # spawn box in simulation
+  roslaunch lara_description spawn_box.launch
+  
+  # run pick routine
+  rosrun lara_manipulation pick_and_place.py
+  ```
+  
+* Run Realtime Servoing Meta Quest 2 Teleop:
+  
+  ```
+  # Make sure simulation and MoveIt is running
+  
+  # Switch from trajectory controller to position controller
+  rosservice call /controller_manager/switch_controller "start_controllers:
+  - 'arm_position_controller'
+  stop_controllers:
+  - 'arm_controller'
+  strictness: 2"
+  
+  # Run realtime servoing server
+  rosrun lara_moveit_servo servo_server.launch
+  
+  # Run Meta Quest teleop
+  rosrun oculus_reader visualize_oculus_transforms.py
   ```
   
 ### Changes I did to get it working:
 ---
+
+In Progress ignore below:
+
 #### lara_description:
 * Created aubo_i5_macro.xacro (Aubo i5 URDF macro with added joint transmissions)
 * Created pgc140_macro.xacro (PGC140 Gripper URDF with added joint transmissions and mimic joint gazebo plugin)
