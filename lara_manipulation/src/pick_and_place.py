@@ -49,7 +49,6 @@ class Manipulation:
         joint_goal = self.gripper.get_current_joint_values()
         joint_goal[0] = val
 
-        print(joint_goal)
         self.gripper.set_joint_value_target(joint_goal)
 
         plan = self.gripper.plan()
@@ -91,12 +90,6 @@ if __name__ == '__main__':
     
     manip = Manipulation()
     eef_link = manip.arm.get_end_effector_link()
-
-
-    pose = create_pose(0.4, 0.0, 0.1, 0.0, pi/2, 0.0)
-    manip.move_to_pose(pose)
-
-    manip.move_gripper(0)
 
     rate = rospy.Rate(2)
 

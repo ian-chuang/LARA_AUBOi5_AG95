@@ -59,8 +59,9 @@
   <exec_depend>rospy</exec_depend>
   <exec_depend>std_msgs</exec_depend>
 
+  <build_depend>moveit_servo</build_depend>
+  <build_export_depend>moveit_servo</build_export_depend>
   <exec_depend>moveit_servo</exec_depend>
-  <exec_depend>joy</exec_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->

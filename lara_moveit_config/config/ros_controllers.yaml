@@ -40,3 +40,4 @@ controller_list:
     type: GripperCommand
     joints:
       - finger_joint
+    max_effort: 1.0

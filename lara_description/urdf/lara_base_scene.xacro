@@ -10,7 +10,7 @@
     <origin xyz="0 0 0" rpy="0 0 0" />
   </xacro:aubo_i5>
 
-  <xacro:dh_ag95_gripper prefix="" parent="ee_link" transmission_hw_interface="hardware_interface/PositionJointInterface" >
+  <xacro:dh_ag95_gripper prefix="" parent="ee_link" transmission_hw_interface="hardware_interface/EffortJointInterface" >
     <origin xyz="0 0 0" rpy="${pi/2}  ${pi} ${pi/2}" />
   </xacro:dh_ag95_gripper>
   
@@ -21,6 +21,14 @@
     <parent link="ee_link" />
     <child link="gripper_tip_link" />
     <origin rpy="0 0 0" xyz="0.2 0 0" />
+  </joint>
+
+  <!-- Add an additional link to teleop control with Meta Quest 2 controller. Oriented like the Meta Quest 2 controller frame -->
+  <link name="teleop_link" />
+  <joint name="teleop_link_joint" type="fixed">
+    <parent link="gripper_tip_link" />
+    <child link="teleop_link" />
+    <origin rpy="${-pi/2} 0 ${-pi/2}" xyz="0 0 0" />
   </joint>
 
 
@@ -46,5 +54,26 @@
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so"></plugin>
   </gazebo>
+
+  <!-- gazebo grasp plugin -->
+  <gazebo>
+    <plugin name="gazebo_grasp_fix" filename="libgazebo_grasp_fix.so">
+         <arm>
+            <arm_name>aubo_i5_ag95</arm_name>
+            <palm_link>wrist_3_link</palm_link>
+            <gripper_link>left_inner_finger</gripper_link>
+            <gripper_link>right_inner_finger</gripper_link>
+            <gripper_link>left_inner_knuckle</gripper_link>
+            <gripper_link>right_inner_knuckle</gripper_link>
+         </arm>
+        <forces_angle_tolerance>90</forces_angle_tolerance>
+        <update_rate>30</update_rate>
+        <grip_count_threshold>1</grip_count_threshold>
+        <max_grip_count>3</max_grip_count>
+        <release_tolerance>0.004</release_tolerance>
+        <disable_collisions_on_attach>false</disable_collisions_on_attach>
+        <contact_topic>__default_topic__</contact_topic>
+     </plugin>
+ </gazebo>
 
 </robot>

@@ -27,6 +27,6 @@
 		args="joint_state_controller arm_controller gripper_controller"/>
 
   <node name="ros_control_stopped_spawner" pkg="controller_manager" type="spawner"
-    args="--stopped arm_position_controller" output="screen" respawn="false" />
+    args="--stopped arm_position_controller gripper_position_controller" output="screen" respawn="false" />
 
 </launch>
