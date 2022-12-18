@@ -12,13 +12,25 @@ ROS packages for running Aubo i5 with DH Robotics AG95 gripper with Moveit and G
   
   # Clone packages
   cd ~/catkin_ws/src
-  git clone https://github.com/ian-chuang/LARA_AUBOi5_AG95.git
+  git clone https://github.com/ian-chuang/LARA_AUBOi5_AG95.git 
   git clone https://github.com/ros-planning/moveit.git -b melodic-devel # Build MoveIt from source for latest features
-  git clone https://github.com/ian-chuang/dh_gripper_ros.git
-  git clone https://github.com/ian-chuang/aubo_robot.git -b melodic
-  git clone https://github.com/ian-chuang/oculus_reader.git
-  git clone https://github.com/ian-chuang/gazebo-pkgs.git
+  git clone https://github.com/ian-chuang/dh_gripper_ros.git # AG95 gripper description and drivers
+  git clone https://github.com/ian-chuang/aubo_robot.git -b melodic # Aubo i5 description and drivers
+  git clone https://github.com/ian-chuang/oculus_reader.git # Reading Meta Quest 2 Controllers
+  
+  # Clone gazebo plugins
+  mkdir gazebo_plugins
+  cd gazebo_plugins
+  git clone https://github.com/ian-chuang/gazebo-pkgs.git # grasping fix plugin
+  git clone https://github.com/roboticsgroup/roboticsgroup_upatras_gazebo_plugins.git # mimic joint plugin
+  git clone https://github.com/pal-robotics/realsense_gazebo_plugin.git -b melodic-devel # realsense simulation plugin
+  
+  # Install ROS package dependencies
+  cd ~/catkin_ws/src
   rosdep install -y --from-paths . --ignore-src --rosdistro melodic
+  
+  # Install other dependencies LARA uses
+  sudo apt-get install ros-melodic-realsense2-camera # realsense drivers
   
   # Add aubo dependencies to path
   cd ~/catkin_ws/src
@@ -62,10 +74,10 @@ ROS packages for running Aubo i5 with DH Robotics AG95 gripper with Moveit and G
   strictness: 2"
   
   # Run realtime servoing server
-  rosrun lara_moveit_servo servo_server.launch
+  roslaunch lara_moveit_servo pose_tracker.launch
   
   # Run Meta Quest teleop
-  rosrun oculus_reader visualize_oculus_transforms.py
+  rosrun oculus_reader pose_teleop.py
   ```
   
 ### Changes I did to get it working:
