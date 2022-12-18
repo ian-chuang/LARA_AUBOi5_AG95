@@ -38,7 +38,7 @@ ROS packages for running Aubo i5 with DH Robotics AG95 gripper with Moveit and G
   cd ~/catkin_ws/src
   mkdir moveit
   wstool init moveit
-  wstool merge -t moveit https://raw.githubusercontent.com/ros-planning/moveit/master/moveit.rosinstall
+  wstool merge -t moveit https://raw.githubusercontent.com/ros-planning/moveit/melodic-devel/moveit.rosinstall
   wstool update -t moveit
   
   # Install ROS package dependencies
