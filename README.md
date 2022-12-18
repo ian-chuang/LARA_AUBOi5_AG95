@@ -13,10 +13,11 @@ ROS packages for running Aubo i5 with DH Robotics AG95 gripper with Moveit and G
   # Clone packages
   cd ~/catkin_ws/src
   git clone https://github.com/ian-chuang/LARA_AUBOi5_AG95.git
+  git clone https://github.com/ros-planning/moveit.git -b melodic-devel # Build MoveIt from source for latest features
   git clone https://github.com/ian-chuang/dh_gripper_ros.git
   git clone https://github.com/ian-chuang/aubo_robot.git -b melodic
   git clone https://github.com/ian-chuang/oculus_reader.git
-  git clone https://github.com/roboticsgroup/roboticsgroup_gazebo_plugins.git
+  git clone https://github.com/ian-chuang/gazebo-pkgs.git
   rosdep install -y --from-paths . --ignore-src --rosdistro melodic
   
   # Add aubo dependencies to path
