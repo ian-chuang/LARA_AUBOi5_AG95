@@ -8,22 +8,38 @@ ROS packages for running Aubo i5 with DH Robotics AG95 gripper with Moveit and G
 * Clone these into the src folder of your ROS workspace:
 
   ```
+  # Update
+  rosdep update
+  sudo apt update
+  sudo apt dist-upgrade
+  
+  # Dependencies to install MoveIt from source
+  sudo apt install python3-wstool python3-catkin-tools clang-format-10 python3-rosdep
+  
+  # Make workspace
   mkdir -p ~/catkin_ws/src
   
   # Clone packages
   cd ~/catkin_ws/src
   git clone https://github.com/ian-chuang/LARA_AUBOi5_AG95.git 
-  git clone https://github.com/ros-planning/moveit.git -b melodic-devel # Build MoveIt from source for latest features
   git clone https://github.com/ian-chuang/dh_gripper_ros.git # AG95 gripper description and drivers
   git clone https://github.com/ian-chuang/aubo_robot.git -b melodic # Aubo i5 description and drivers
   git clone https://github.com/ian-chuang/oculus_reader.git # Reading Meta Quest 2 Controllers
   
   # Clone gazebo plugins
+  cd ~/catkin_ws/src
   mkdir gazebo_plugins
   cd gazebo_plugins
   git clone https://github.com/ian-chuang/gazebo-pkgs.git # grasping fix plugin
   git clone https://github.com/roboticsgroup/roboticsgroup_upatras_gazebo_plugins.git # mimic joint plugin
   git clone https://github.com/pal-robotics/realsense_gazebo_plugin.git -b melodic-devel # realsense simulation plugin
+  
+  # Install MoveIt from source
+  cd ~/catkin_ws/src
+  mkdir moveit
+  wstool init moveit
+  wstool merge -t moveit https://raw.githubusercontent.com/ros-planning/moveit/master/moveit.rosinstall
+  wstool update -t moveit
   
   # Install ROS package dependencies
   cd ~/catkin_ws/src
@@ -32,10 +48,14 @@ ROS packages for running Aubo i5 with DH Robotics AG95 gripper with Moveit and G
   # Install other dependencies LARA uses
   sudo apt-get install ros-melodic-realsense2-camera # realsense drivers
   
-  # Add aubo dependencies to path
+  # Add aubo dependencies 
+  sudo apt-get install gdebi
+  wget http://archive.ubuntu.com/ubuntu/pool/main/p/protobuf/libprotobuf9v5_2.6.1-1.3_amd64.deb 
+  sudo gdebi ./libprotobuf9v5_2.6.1-1.3_amd64.deb
+  rm ./libprotobuf9v5_2.6.1-1.3_amd64.deb
   cd ~/catkin_ws/src
   sudo ln -s aubo_robot/aubo_driver/lib/lib64/config/libconfig.so.11 /usr/lib/libconfig.so.11
-  sudo ln -s aubo_robot/aubo_driver/lib/lib64/log4cplus/liblog4cplus-1.2.so.5.1.4 /usr/lib/liblog4cplus-1.2.so.5
+  sudo ln -s aubo_robot/aubo_driver/lib/lib64/log4cplus/liblog4cplus-1.2.so.5.1.4 /usr/lib/liblog4cplus-1.2.so.5.1.4
   sudo ldconfig
   
   # Build
