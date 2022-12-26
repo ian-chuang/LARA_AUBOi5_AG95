@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<robot name="red_box">
+
+    <link name="base_link">
+        <inertial>
+            <origin xyz="0.0046172673676522225 -3.603241376382016e-09 0.04197159981579755"
+                rpy="0 0 0" />
+            <mass value="0.4222124006792332" />
+            <inertia ixx="0.000568" iyy="0.000678" izz="0.000635" ixy="0.0" iyz="0.0" ixz="-1.2e-05" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://lara_description/meshes/parts/mug.stl"
+                    scale="0.001 0.001 0.001" />
+            </geometry>
+            <material name="red">
+                <color rgba=".1 .2 .3 1.0" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://lara_description/meshes/parts/mug.stl"
+                    scale="0.001 0.001 0.001" />
+            </geometry>
+        </collision>
+    </link>
+
+    <gazebo reference="base_link">
+        <material>Gazebo/Blue</material>
+        <kp>1000000.0</kp>
+        <kd>1.0</kd>
+        <mu1>1.16</mu1>
+        <mu2>1.16</mu2>
+        <maxVel>0.0</maxVel>
+        <minDepth>0.003</minDepth>
+    </gazebo>
+
+
+</robot>

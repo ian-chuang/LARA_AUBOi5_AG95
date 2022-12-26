@@ -1,4 +1,10 @@
 planner_configs:
+  AnytimePathShortening:
+    type: geometric::AnytimePathShortening
+    shortcut: true  # Attempt to shortcut all new solution paths
+    hybridize: true  # Compute hybrid solution trajectories
+    max_hybrid_paths: 24  # Number of hybrid paths generated per iteration
+    num_planners: 4  # The number of default planners to use for planning
   SBL:
     type: geometric::SBL
     range: 0.0  # Max motion added to tree. ==> maxDistance_ default: 0.0, if 0.0, set on setup()
@@ -122,6 +128,7 @@ planner_configs:
     max_failures: 5000  # maximum consecutive failure limit. default: 5000
 arm:
   planner_configs:
+    - AnytimePathShortening
     - SBL
     - EST
     - LBKPIECE
@@ -149,6 +156,7 @@ arm:
   longest_valid_segment_fraction: 0.005
 gripper:
   planner_configs:
+    - AnytimePathShortening
     - SBL
     - EST
     - LBKPIECE

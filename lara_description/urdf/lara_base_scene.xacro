@@ -4,16 +4,31 @@
 
   <xacro:include filename="$(find aubo_description)/urdf/aubo_i5_macro.xacro" />
   <xacro:include filename="$(find dh_ag95_description)/urdf/ag95_macro.xacro" />
+  <xacro:include filename="$(find lara_description)/urdf/workspace/lara_workspace_macro.xacro" />
+  <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
 
 
-  <xacro:aubo_i5 prefix="" parent="world" hw_interface="hardware_interface/PositionJointInterface" >
+  <xacro:aubo_i5 prefix="" parent="arm_mount_1" hw_interface="hardware_interface/PositionJointInterface">
     <origin xyz="0 0 0" rpy="0 0 0" />
   </xacro:aubo_i5>
 
-  <xacro:dh_ag95_gripper prefix="" parent="ee_link" transmission_hw_interface="hardware_interface/EffortJointInterface" >
+  <xacro:dh_ag95_gripper prefix="" parent="ee_link"
+    transmission_hw_interface="hardware_interface/PositionJointInterface">
     <origin xyz="0 0 0" rpy="${pi/2}  ${pi} ${pi/2}" />
   </xacro:dh_ag95_gripper>
-  
+
+  <xacro:workspace parent="world" arm_mount_spacing="0.4">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:workspace>
+
+  <!-- <sensor_d435 parent="world" name="camera1" publish_pointcloud="false" topics_ns="camera1">
+    <origin xyz=".75 -0.4 1.5" rpy="0 ${pi/4} ${pi}"/>
+  </sensor_d435>
+
+  <sensor_d435 parent="world" name="camera2" publish_pointcloud="false" topics_ns="camera2">
+    <origin xyz="0 1 1.2" rpy="0 0 ${-pi/2}"/>
+  </sensor_d435> -->
+
 
   <!-- Add an additional link to plan with. Oriented like the aubo_i5 ee_link frame. -->
   <link name="gripper_tip_link" />
@@ -23,7 +38,8 @@
     <origin rpy="0 0 0" xyz="0.2 0 0" />
   </joint>
 
-  <!-- Add an additional link to teleop control with Meta Quest 2 controller. Oriented like the Meta Quest 2 controller frame -->
+  <!-- Add an additional link to teleop control with Meta Quest 2 controller. Oriented like the Meta
+  Quest 2 controller frame -->
   <link name="teleop_link" />
   <joint name="teleop_link_joint" type="fixed">
     <parent link="gripper_tip_link" />
@@ -31,23 +47,16 @@
     <origin rpy="${-pi/2} 0 ${-pi/2}" xyz="0 0 0" />
   </joint>
 
-
-  <link name="world" />
-  <link name="ground">
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 -0.01" />
-      <geometry>
-        <box size="5 5 0.02" />
-      </geometry>
-    </collision>
-  </link>
-  <joint name="ground_to_world" type="fixed">
-    <parent link="world" />
-    <child link="ground" />
-    <origin xyz="0 0 0" />
+  <!-- Add an additional frame to plan with. Oriented like world frame. -->
+  <link name="manipulation_frame" />
+  <joint name="manipulation_frame_joint" type="fixed">
+    <parent link="aubo_i5_base_link" />
+    <child link="manipulation_frame" />
+    <origin rpy="0 0 0" xyz="0 0 ${-0.045-0.0225}" />
   </joint>
 
-  
+  <!-- world link for gazebo -->
+  <link name="world" />
 
 
   <!-- ros_control plugin -->
@@ -56,24 +65,24 @@
   </gazebo>
 
   <!-- gazebo grasp plugin -->
-  <gazebo>
+  <!-- <gazebo>
     <plugin name="gazebo_grasp_fix" filename="libgazebo_grasp_fix.so">
-         <arm>
-            <arm_name>aubo_i5_ag95</arm_name>
-            <palm_link>wrist_3_link</palm_link>
-            <gripper_link>left_inner_finger</gripper_link>
-            <gripper_link>right_inner_finger</gripper_link>
-            <gripper_link>left_inner_knuckle</gripper_link>
-            <gripper_link>right_inner_knuckle</gripper_link>
-         </arm>
-        <forces_angle_tolerance>90</forces_angle_tolerance>
-        <update_rate>30</update_rate>
-        <grip_count_threshold>1</grip_count_threshold>
-        <max_grip_count>3</max_grip_count>
-        <release_tolerance>0.004</release_tolerance>
-        <disable_collisions_on_attach>false</disable_collisions_on_attach>
-        <contact_topic>__default_topic__</contact_topic>
-     </plugin>
- </gazebo>
+      <arm>
+        <arm_name>aubo_i5_ag95</arm_name>
+        <palm_link>wrist_3_link</palm_link>
+        <gripper_link>left_finger</gripper_link>
+        <gripper_link>right_finger</gripper_link>
+        <gripper_link>left_inner_knuckle</gripper_link>
+        <gripper_link>right_inner_knuckle</gripper_link>
+      </arm>
+      <forces_angle_tolerance>90</forces_angle_tolerance>
+      <update_rate>30</update_rate>
+      <grip_count_threshold>1</grip_count_threshold>
+      <max_grip_count>3</max_grip_count>
+      <release_tolerance>0.004</release_tolerance>
+      <disable_collisions_on_attach>false</disable_collisions_on_attach>
+      <contact_topic>__default_topic__</contact_topic>
+    </plugin>
+  </gazebo> -->
 
 </robot>

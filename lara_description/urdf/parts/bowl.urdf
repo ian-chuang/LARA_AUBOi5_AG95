@@ -1,0 +1,48 @@
+<robot name="bowl" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+  <material name="silver">
+    <color rgba="0.700 0.700 0.700 1.000" />
+  </material>
+
+  <link name="base_link">
+    <inertial>
+      <origin xyz="2.6140570628190146e-16 1.7971642306880724e-16 0.026963243759660322" rpy="0 0 0" />
+      <mass value="0.47317742676867514" />
+      <inertia ixx="0.000832" iyy="0.000832" izz="0.001418" ixy="0.0" iyz="0.0" ixz="0.0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://lara_description/meshes/parts/bowl.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="silver" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://lara_description/meshes/parts/bowl.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+  </link>
+
+  <xacro:property name="body_color" value="Gazebo/White" />
+
+  <gazebo reference="base_link">
+    <material>${body_color}</material>
+    <collision>
+      <max_contacts>10</max_contacts>
+      <surface>
+        <friction>
+          <ode>
+            <!-- Rubber/Rubber contact -->
+            <mu>1.16</mu>
+            <mu2>1.16</mu2>
+          </ode>
+        </friction>
+        <bounce />
+      </surface>
+    </collision>
+  </gazebo>
+
+</robot>

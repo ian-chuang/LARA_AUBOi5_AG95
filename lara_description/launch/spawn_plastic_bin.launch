@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+
+
+  <param name="plastic_bin_description"
+    textfile="$(find lara_description)/urdf/parts/plastic_bin.urdf" />
+
+
+
+    <node name="spawn_plastic_bin" pkg="gazebo_ros" type="spawn_model"
+    args="-urdf -param plastic_bin_description -model plastic_bin -x .08 -y -.2 -z .75"
+    respawn="false" output="screen" />
+
+</launch>

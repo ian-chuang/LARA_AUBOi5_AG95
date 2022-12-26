@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find lara_description)/urdf/workspace/materials.xacro" />
+  <xacro:include filename="$(find lara_description)/urdf/workspace/lara_workspace.gazebo" />
+
+  <xacro:macro name="workspace" params="
+    arm_mount_spacing
+    parent
+    *origin"
+  >
+
+    <link name="arm_mount_1">
+      <inertial>
+        <origin xyz="7.105427357601002e-17 -7.105427357601002e-17 ${-.0225 + 0.00887845311895159}"
+          rpy="0 0 0" />
+        <mass value="1.9541243164872064" />
+        <inertia ixx="0.007781" iyy="0.007781" izz="0.01542" ixy="0.0" iyz="-0.0" ixz="-0.0" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 -0.0225" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://lara_description/meshes/workspace/arm_mount.stl"
+            scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="aluminum" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 -0.0225" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://lara_description/meshes/workspace/arm_mount.stl"
+            scale="0.001 0.001 0.001" />
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="arm_mount_2">
+      <inertial>
+        <origin xyz="7.105427357601002e-17 -7.105427357601002e-17 ${-.0225 + 0.00887845311895159}"
+          rpy="0 0 0" />
+        <mass value="1.9541243164872064" />
+        <inertia ixx="0.007781" iyy="0.007781" izz="0.01542" ixy="0.0" iyz="-0.0" ixz="-0.0" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 -0.0225" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://lara_description/meshes/workspace/arm_mount.stl"
+            scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="aluminum" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 -0.0225" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://lara_description/meshes/workspace/arm_mount.stl"
+            scale="0.001 0.001 0.001" />
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="base_mount">
+      <inertial>
+        <origin xyz="${-0.3263745816856083-.341} ${0.022499999999999895+.8775} 0.021576490144779893" rpy="0 0 0"/>
+        <mass value="${64.1173727502823/2}"/>
+        <inertia ixx="${22.106396/2}" iyy="${2.162412/2}" izz="${24.247288/2}" ixy="${0.0/2}" iyz="${-0.0/2}" ixz="${0.010999/2}"/>
+      </inertial>
+      <visual>
+        <origin xyz="-.341 .8775 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://lara_description/meshes/workspace/base_mount.stl"
+            scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="aluminum" />
+      </visual>
+      <collision>
+        <origin xyz="-.341 .8775 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://lara_description/meshes/workspace/base_mount.stl"
+            scale="0.001 0.001 0.001" />
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="table">
+      <inertial>
+        <origin xyz="3.206702352856439e-16 -7.90986580371255e-15 0.6742624735551555" rpy="0 0 0"/>
+        <mass value="${47.39817652294922*1.5}"/>
+        <inertia ixx="${23.748993*1.5}" iyy="${7.964929*1.5}" izz="${29.235249*1.5}" ixy="${-0.0*1.5}" iyz="${-0.0*1.5}" ixz="${-0.0*1.5}"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://lara_description/meshes/workspace/table.stl"
+            scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="wood" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://lara_description/meshes/workspace/table.stl"
+            scale="0.001 0.001 0.001" />
+        </geometry>
+      </collision>
+    </link>
+
+
+    <joint name="arm_mount_1_joint" type="fixed">
+      <parent link="base_mount" />
+      <child link="arm_mount_1" />
+      <origin xyz="-.7465 ${.9 - arm_mount_spacing} ${.045+0.0225}" />
+    </joint>
+    
+    <!-- mount spacing -->
+    <joint name="arm_mount_2_joint" type="fixed">
+      <parent link="base_mount" />
+      <child link="arm_mount_2" />
+      <origin xyz="-.7465 ${.9 + arm_mount_spacing} ${.045+0.0225}" /> 
+    </joint>
+
+    <joint name="base_mount_joint" type="fixed">
+      <parent link="table" />
+      <child link="base_mount" />
+      <origin xyz=".4295 -.9 .750" />
+    </joint>
+
+    <joint name="table_joint" type="fixed">
+      <parent link="${parent}" />
+      <child link="table" />
+      <xacro:insert_block name="origin" />
+    </joint>
+
+  </xacro:macro>
+
+</robot>

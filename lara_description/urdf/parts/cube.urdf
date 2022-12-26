@@ -3,31 +3,31 @@
 
   <link name="base_link">
     <collision>
-      <origin xyz="0 0 0.04" rpy="0 0 0" />
+      <origin xyz="0 0 0.02" rpy="0 0 0" />
       <geometry>
-        <box size="0.04 0.04 0.08" />
+        <box size="0.04 0.04 0.04" />
       </geometry>
     </collision>
 
     <visual>
-      <origin xyz="0 0 0.04" rpy="0 0 0" />
+      <origin xyz="0 0 0.02" rpy="0 0 0" />
       <geometry>
-        <box size="0.04 0.04 0.08" />
+        <box size="0.04 0.04 0.04" />
       </geometry>
-      <material name="red">
-        <color rgba="1 0 0 1.0" />
+      <material name="blue">
+        <color rgba=".2 .4 1 1.0" />
       </material>
     </visual>
 
     <inertial>
-      <origin xyz="0.0 0.0 0.04" rpy="0 0 0" />
-      <mass value="0.13568" />
-      <inertia ixx="9e-05" iyy="9e-05" izz="3.6e-05" ixy="0.0" iyz="0.0" ixz="0.0" />
+      <origin xyz="0.0 0.0 0.02" rpy="0 0 0" />
+      <mass value=".006784" />
+      <inertia ixx=".18e-05" iyy=".18e-05" izz=".18e-05" ixy="0.0" iyz="0.0" ixz="0.0" />
     </inertial>
   </link>
 
   <gazebo reference="base_link">
-    <material>Gazebo/Red</material>
+    <material>Gazebo/Blue</material>
     <kp>1000000.0</kp>
     <kd>1.0</kd>
     <mu1>1.16</mu1>

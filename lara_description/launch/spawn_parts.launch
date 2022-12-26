@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<launch>
+
+  <param name="bowl_description" textfile="$(find lara_description)/urdf/parts/bowl.urdf" />
+  <param name="box_description" textfile="$(find lara_description)/urdf/parts/box.urdf" />
+  <param name="cube_description" textfile="$(find lara_description)/urdf/parts/cube.urdf" />
+  <param name="mug_description" textfile="$(find lara_description)/urdf/parts/mug.urdf" />
+  <param name="pencil_description" textfile="$(find lara_description)/urdf/parts/pencil.urdf" />
+  <param name="plastic_bin_description"
+    textfile="$(find lara_description)/urdf/parts/plastic_bin.urdf" />
+  <param name="soda_can_description" textfile="$(find lara_description)/urdf/parts/soda_can.urdf" />
+  <param name="tennis_ball_description"
+    textfile="$(find lara_description)/urdf/parts/tennis_ball.urdf" />
+
+
+  <node name="spawn_box" pkg="gazebo_ros" type="spawn_model"
+    args="-urdf -param box_description -model box -x .08 -y -.7 -z .75"
+    respawn="false" output="screen" />
+  <node name="spawn_cube" pkg="gazebo_ros" type="spawn_model"
+    args="-urdf -param cube_description -model cube -x .08 -y -.55 -z .75"
+    respawn="false" output="screen" />
+  <node name="spawn_mug" pkg="gazebo_ros" type="spawn_model"
+    args="-urdf -param mug_description -model mug -x .08 -y -.4 -z .75"
+    respawn="false" output="screen" />
+  <node name="spawn_pencil" pkg="gazebo_ros" type="spawn_model"
+    args="-urdf -param pencil_description -model pencil -x .08 -y -.25 -z .75"
+    respawn="false" output="screen" />
+  <node name="spawn_soda_can" pkg="gazebo_ros" type="spawn_model"
+    args="-urdf -param soda_can_description -model soda_can -x .08 -y -.1 -z .75"
+    respawn="false" output="screen" />
+  <node name="spawn_tennis_ball" pkg="gazebo_ros" type="spawn_model"
+    args="-urdf -param tennis_ball_description -model tennis_ball -x .08 -y 0.05 -z .75"
+    respawn="false" output="screen" />
+  <node name="spawn_plastic_bin" pkg="gazebo_ros" type="spawn_model"
+    args="-urdf -param plastic_bin_description -model plastic_bin -x .08 -y .3 -z .75"
+    respawn="false" output="screen" />
+  <node name="spawn_bowl" pkg="gazebo_ros" type="spawn_model"
+    args="-urdf -param bowl_description -model bowl -x .08 -y .5 -z .75"
+    respawn="false" output="screen" />
+
+
+    <!-- <node name="spawn_plastic_bin" pkg="gazebo_ros" type="spawn_model"
+    args="-urdf -param plastic_bin_description -model plastic_bin -x .08 -y -.2 -z .75"
+    respawn="false" output="screen" /> -->
+
+</launch>

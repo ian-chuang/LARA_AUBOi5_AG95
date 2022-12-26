@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<robot name="lara_workspace" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+<material name="wood">
+  <color rgba="0.58 0.43 0.2 1.000"/>
+</material>
+
+<material name="aluminum">
+  <color rgba="0.121 0.218 0.33 1.000"/>
+</material>
+
+</robot>

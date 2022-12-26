@@ -6,8 +6,12 @@ import rospy
 import moveit_commander
 import moveit_msgs.msg
 import geometry_msgs.msg
-from tf.transformations import quaternion_from_euler
+from tf.transformations import quaternion_from_euler, translation_matrix, quaternion_matrix, translation_from_matrix, quaternion_from_matrix
+import numpy as np
+import tf
 from math import pi
+
+planning_frame = "manipulation_frame"
 
 def create_pose(x, y, z, roll, pitch, yaw, header=False):
     pose = geometry_msgs.msg.Pose()
@@ -22,7 +26,7 @@ def create_pose(x, y, z, roll, pitch, yaw, header=False):
         return pose
     else:
         poseStamped = geometry_msgs.msg.PoseStamped()
-        poseStamped.header.frame_id = "world"
+        poseStamped.header.frame_id = planning_frame
         poseStamped.pose = pose
         return poseStamped
 
@@ -32,11 +36,14 @@ class Manipulation:
         self.robot = moveit_commander.RobotCommander()
         self.arm = moveit_commander.MoveGroupCommander("arm")
         self.gripper = moveit_commander.MoveGroupCommander("gripper")
+
+        self.arm.set_pose_reference_frame(planning_frame)
+        self.arm.set_support_surface_name('table')
         
     def move_to_pose(self, pose):
         self.arm.set_pose_target(pose)
 
-        plan = self.arm.plan()
+        error_code_val, plan, planning_time, error_code = self.arm.plan()
 
         error_code_val = self.arm.execute(plan, wait=True)
         success = (error_code_val == moveit_msgs.msg.MoveItErrorCodes.SUCCESS)
@@ -47,11 +54,11 @@ class Manipulation:
 
     def move_gripper(self, val):
         joint_goal = self.gripper.get_current_joint_values()
-        joint_goal[0] = val
+        joint_goal = [val] * len(joint_goal)
 
         self.gripper.set_joint_value_target(joint_goal)
 
-        plan = self.gripper.plan()
+        error_code_val, plan, planning_time, error_code = self.gripper.plan()
 
         error_code_val = self.gripper.execute(plan, wait=True)
         success = (error_code_val == moveit_msgs.msg.MoveItErrorCodes.SUCCESS)
@@ -79,13 +86,21 @@ class Manipulation:
         if not success:
             return False
 
-        return True   
+        return True  
+
+    
 
     
 
         
 if __name__ == '__main__':
     rospy.init_node('pick_and_place')
+
+    y = -.55
+    height = 0.02
+    gripper_max = 0.93
+
+    y = y + 0.4
 
     
     manip = Manipulation()
@@ -94,16 +109,16 @@ if __name__ == '__main__':
     rate = rospy.Rate(2)
 
     rate.sleep()
-    pose = create_pose(0.4, 0, 0.01, 0, 0, 0, header=True)
+    pose = create_pose(0.4, y, 0.012, 0, 0, 0, header=True)
     manip.scene.add_box('cube', pose, size=(0.02, 0.02, 0.02))
     rate.sleep()
 
-    pose = create_pose(0.4, 0.0, 0.1, 0.0, pi/2, 0.0)
+    pose = create_pose(0.4, y, 0.15, 0.0, pi/2, 0.0)
     manip.move_to_pose(pose)
 
     manip.move_gripper(0)
     
-    pose = create_pose(0.4, 0.0, 0.01, 0.0, pi/2, 0.0)
+    pose = create_pose(0.4, y, height, 0.0, pi/2, 0.0)
     manip.move_cartesian_path(pose)
 
     rate.sleep()
@@ -112,9 +127,9 @@ if __name__ == '__main__':
     manip.scene.attach_box(eef_link, 'cube', touch_links=touch_links)
     rate.sleep()
 
-    manip.move_gripper(0.65)
+    manip.move_gripper(gripper_max)
 
-    pose = create_pose(0.4, 0.0, 0.2, 0.0, pi/2, 0.0)
+    pose = create_pose(0.4, y, 0.2, 0.0, pi/2, 0.0)
     manip.move_cartesian_path(pose)
 
     rate.sleep()
@@ -123,8 +138,12 @@ if __name__ == '__main__':
     manip.scene.remove_world_object('cube')
     rate.sleep()
 
+    rospy.sleep(3)
 
-    # rospy.spin()
+    manip.move_gripper(0)
+
+
+    # # rospy.spin()
 
     
 

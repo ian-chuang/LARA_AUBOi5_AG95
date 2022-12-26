@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<robot name="red_box">
+
+    <link name="base_link">
+        <inertial>
+            <origin xyz="0.0 0.0 0.03429" rpy="0 0 0" />
+            <mass value="0.17901809441827438" />
+            <inertia ixx="8.4e-05" iyy="8.4e-05" izz="8.4e-05" ixy="-0.0" iyz="-0.0" ixz="-0.0" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://lara_description/meshes/parts/tennis_ball.stl"
+                    scale="0.001 0.001 0.001" />
+            </geometry>
+            <material name="green">
+                <color rgba=".3 1 0 1.0" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://lara_description/meshes/parts/tennis_ball.stl"
+                    scale="0.001 0.001 0.001" />
+            </geometry>
+        </collision>
+    </link>
+
+    <gazebo reference="base_link">
+        <material>Gazebo/Green</material>
+        <kp>1000000.0</kp>
+        <kd>1.0</kd>
+        <mu1>1.16</mu1>
+        <mu2>1.16</mu2>
+        <maxVel>0.0</maxVel>
+        <minDepth>0.003</minDepth>
+    </gazebo>
+
+
+</robot>

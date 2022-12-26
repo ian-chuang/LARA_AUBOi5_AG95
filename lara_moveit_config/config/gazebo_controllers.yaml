@@ -1,3 +1,5 @@
+# max_effort and max_velocity can be set in the urdf for gripper and arm joints
+
 joint_state_controller:
   type: joint_state_controller/JointStateController
   publish_rate: &loop_hz 500
@@ -24,30 +26,13 @@ arm_controller:
   state_publish_rate: *loop_hz
   action_monitor_rate: 10
 
-# gripper_controller:
-#   type: effort_controllers/JointTrajectoryController
-#   joints: 
-#     - finger_joint
-#   gains:
-#     finger_joint: {p: 10,  d: 0.1, i: 1, i_clamp: 1}
-#   constraints:
-#     goal_time: 0.6
-#     stopped_velocity_tolerance: 0.05
-#     finger_joint: { trajectory: 0.1, goal: 0.1 }
-#   stop_trajectory_duration: 0.5
-#   state_publish_rate: *loop_hz
-#   action_monitor_rate: 10
-
 gripper_controller:
-  type: effort_controllers/GripperActionController
-  gains:
-    finger_joint: {p: 100,  d: 1, i: 1, i_clamp: 1}
-  joint: finger_joint
-  action_monitor_rate: 20
+  type: position_controllers/GripperActionController
+  joint: left_outer_knuckle_joint
   goal_tolerance: 0.1
-  max_effort: 10
-  stall_velocity_threshold: 0.05
-  stall_timeout: 1.0
+  stall_position_threshold: 0.05 # Tune to fit your robot
+  stall_timeout: 1
+  action_monitor_rate: 10
 
 arm_position_controller:
   type: position_controllers/JointGroupPositionController
@@ -60,26 +45,18 @@ arm_position_controller:
     - wrist_3_joint
 
 gripper_position_controller:
-  type: effort_controllers/JointPositionController
-  joint: finger_joint
-  pid: {p: 100,  d: 1, i: 1, i_clamp: 1}
+  type: position_controllers/JointPositionController
+  joint: left_outer_knuckle_joint
 
-# gazebo_ros_control:
-#   pid_gains:
-#     finger_joint: { p: 10, d: 0.1, i: 1, i_clamp: 1 }
-    
-#     left_outer_finger_joint: { p: 10, d: 0.0, i: 1, i_clamp: 1 }
-#     left_inner_finger_joint: { p: 10, d: 0.0, i: 1, i_clamp: 1 }
-#     right_finger_joint: { p: 10, d: 0.0, i: 1, i_clamp: 1 }
-#     right_outer_finger_joint: { p: 10, d: 0.0, i: 1, i_clamp: 1 }
-#     right_inner_finger_joint: { p: 10, d: 0.0, i: 1, i_clamp: 1 }
-
-#     right_inner_knuckle_joint: { p: 50, d: 0.1, i: 1, i_clamp: 1 }
-#     left_inner_knuckle_joint: { p: 50, d: 0.1, i: 0, i_clamp: 0 }
-
-#     shoulder_pan_joint: { p: 10000, d: 50, i: 1, i_clamp: 1 }
-#     shoulder_lift_joint: { p: 12000, d: 200, i: 1, i_clamp: 1 }
-#     elbow_joint: { p: 6000, d: 20, i: 1, i_clamp: 1 }
-#     wrist_1_joint: { p: 1000, d: 1, i: 1, i_clamp: 1 }
-#     wrist_2_joint: { p: 1000, d: 1, i: 1, i_clamp: 1 }
-#     wrist_3_joint: { p: 1000, d: 1, i: 1, i_clamp: 1 }
+gazebo_ros_control:
+  pid_gains:
+    # arm
+    shoulder_pan_joint: {p: 4000,  d: 200, i: 1, i_clamp: 1}
+    shoulder_lift_joint: {p: 10000,  d: 200, i: 1, i_clamp: 1}
+    elbow_joint: {p: 2000,  d: 20, i: 1, i_clamp: 1}
+    wrist_1_joint: {p: 500,  d: 1, i: 1, i_clamp: 1}
+    wrist_2_joint: {p: 500,  d: 1, i: 1, i_clamp: 1}
+    wrist_3_joint: {p: 10,  d: 0.1, i: 0, i_clamp: 1} 
+    # gripper
+    left_outer_knuckle_joint: {p: 10,  d: 0.1, i: 1, i_clamp: 1}
+    right_outer_knuckle_joint: {p: 20,  d: 0.1, i: 1, i_clamp: 1}

@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<robot name="Soda" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <material name="silver">
+        <color rgba="0.700 0.700 0.700 1.000" />
+    </material>
+
+
+    <link name="can_link">
+        <inertial>
+            <origin xyz="0.0001078276211319564 0.05667108592676227 3.517202504737782e-06"
+                rpy="0 0 0" />
+            <mass value=".10214381824020209" />
+            <inertia ixx=".0001322" iyy=".0000543" izz=".0001323" ixy="0.0" iyz="0.0" ixz="-0.0" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://lara_description/meshes/parts/soda_can.stl"
+                    scale="0.001 0.001 0.001" />
+            </geometry>
+            <material name="silver" />
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://lara_description/meshes/parts/soda_can.stl"
+                    scale="0.001 0.001 0.001" />
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="base_link" />
+    <joint name="can_joint" type="fixed">
+        <parent link="base_link" />
+        <child link="can_link" />
+        <origin rpy="1.57079632679 0 0" xyz="0 0 0" />
+    </joint>
+
+    <xacro:property name="body_color" value="Gazebo/Grey" />
+
+    <gazebo reference="can_link">
+        <material>${body_color}</material>
+        <kp>1000000.0</kp>
+        <kd>1.0</kd>
+        <mu1>1.16</mu1>
+        <mu2>1.16</mu2>
+        <maxVel>0.0</maxVel>
+        <minDepth>0.003</minDepth>
+    </gazebo>
+
+</robot>
