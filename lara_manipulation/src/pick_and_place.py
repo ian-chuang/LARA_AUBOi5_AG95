@@ -37,6 +37,9 @@ class Manipulation:
         self.arm = moveit_commander.MoveGroupCommander("arm")
         self.gripper = moveit_commander.MoveGroupCommander("gripper")
 
+        self.arm.set_max_velocity_scaling_factor(1)
+        self.arm.set_max_acceleration_scaling_factor(1)
+
         self.arm.set_pose_reference_frame(planning_frame)
         self.arm.set_support_surface_name('table')
         
@@ -96,51 +99,47 @@ class Manipulation:
 if __name__ == '__main__':
     rospy.init_node('pick_and_place')
 
-    y = -.55
-    height = 0.02
-    gripper_max = 0.93
-
-    y = y + 0.4
-
-    
     manip = Manipulation()
     eef_link = manip.arm.get_end_effector_link()
 
-    rate = rospy.Rate(2)
+    ys = [-.7, -.55, -.395, -.25, -.1, .05] 
+    heights = [0.04, 0.02, 0.045, 0.008, 0.07, 0.02] 
+    gripper_max = 0.93
 
-    rate.sleep()
-    pose = create_pose(0.4, y, 0.012, 0, 0, 0, header=True)
-    manip.scene.add_box('cube', pose, size=(0.02, 0.02, 0.02))
-    rate.sleep()
+    for y, height in zip(ys, heights):
+        y = y + 0.4
+        pose = create_pose(0.4, y, 0.15, 0.0, pi/2, 0.0)
+        manip.move_to_pose(pose)
+        manip.move_gripper(0)
+        pose = create_pose(0.4, y, height, 0.0, pi/2, 0.0)
+        manip.move_cartesian_path(pose)
+        manip.move_gripper(gripper_max)
+        pose = create_pose(0.4, y, 0.2, 0.0, pi/2, 0.0)
+        manip.move_cartesian_path(pose)
+        rospy.sleep(0.1)
+        pose = create_pose(0.4, y, height, 0.0, pi/2, 0.0)
+        manip.move_cartesian_path(pose)
+        manip.move_gripper(0)
+        pose = create_pose(0.4, y, 0.2, 0.0, pi/2, 0.0)
+        manip.move_cartesian_path(pose)
 
-    pose = create_pose(0.4, y, 0.15, 0.0, pi/2, 0.0)
-    manip.move_to_pose(pose)
+    # y = 0.19
+    # height = 0.1
+    # y = y + 0.4
+    # pose = create_pose(0.4, y, 0.2, 0.0, pi/2, 0.0)
+    # manip.move_to_pose(pose)
+    # manip.move_gripper(0)
+    # pose = create_pose(0.4, y, height, 0.0, pi/2, 0.0)
+    # manip.move_cartesian_path(pose)
+    # manip.move_gripper(gripper_max)
+    # pose = create_pose(0.4, y, 0.2, 0.0, pi/2, 0.0)
+    # manip.move_cartesian_path(pose)
+    # rospy.sleep(1)
+    # pose = create_pose(0.4, y, height+0.01, 0.0, pi/2, 0.0)
+    # manip.move_cartesian_path(pose)
+    # pose = create_pose(0.4, -.3+0.4, height+0.01, 0.0, pi/2, 0.0)
+    # manip.move_cartesian_path(pose)
 
-    manip.move_gripper(0)
-    
-    pose = create_pose(0.4, y, height, 0.0, pi/2, 0.0)
-    manip.move_cartesian_path(pose)
-
-    rate.sleep()
-    grasping_group = 'gripper'
-    touch_links = manip.robot.get_link_names(group=grasping_group)
-    manip.scene.attach_box(eef_link, 'cube', touch_links=touch_links)
-    rate.sleep()
-
-    manip.move_gripper(gripper_max)
-
-    pose = create_pose(0.4, y, 0.2, 0.0, pi/2, 0.0)
-    manip.move_cartesian_path(pose)
-
-    rate.sleep()
-    manip.scene.remove_attached_object(eef_link, name='cube')
-    rate.sleep()
-    manip.scene.remove_world_object('cube')
-    rate.sleep()
-
-    rospy.sleep(3)
-
-    manip.move_gripper(0)
 
 
     # # rospy.spin()

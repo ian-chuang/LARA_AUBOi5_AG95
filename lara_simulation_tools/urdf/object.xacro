@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <link name="base_link">
+    <inertial>
+        <origin xyz="$(arg iox) $(arg ioy) $(arg ioz)" rpy="0 0 0"/>
+        <mass value="$(arg mass)"/>
+        <inertia ixx="$(arg ixx)" iyy="$(arg iyy)" izz="$(arg izz)" ixy="$(arg ixy)" iyz="$(arg iyz)" ixz="$(arg ixz)"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://homestri_robot_description/meshes/parts/$(arg mesh)" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://homestri_robot_description/meshes/parts/$(arg mesh)" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+  </link>
+
+  <gazebo reference="base_link">
+    <visual>
+      <plugin name="gazebo_ros_model_color" filename="libgazebo_ros_model_color.so">
+        <serviceName>/gazebo_color_plugin/$(arg model_name)</serviceName>      <!-- Service topic name-->
+        <color>$(arg color)</color>      <!-- Default Color -->
+      </plugin>
+    </visual>
+    <kp>1000000.0</kp>
+    <kd>1.0</kd>
+    <mu1>0.8</mu1>
+    <mu2>0.8</mu2>
+    <maxVel>0.0</maxVel>
+    <minDepth>0.001</minDepth>
+  </gazebo>
+
+
+</robot>

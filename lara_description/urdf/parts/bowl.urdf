@@ -30,19 +30,12 @@
 
   <gazebo reference="base_link">
     <material>${body_color}</material>
-    <collision>
-      <max_contacts>10</max_contacts>
-      <surface>
-        <friction>
-          <ode>
-            <!-- Rubber/Rubber contact -->
-            <mu>1.16</mu>
-            <mu2>1.16</mu2>
-          </ode>
-        </friction>
-        <bounce />
-      </surface>
-    </collision>
+    <kp>1000000.0</kp>
+    <kd>1.0</kd>
+    <mu1>1.16</mu1>
+    <mu2>1.16</mu2>
+    <maxVel>0.0</maxVel>
+    <minDepth>0.003</minDepth>
   </gazebo>
 
 </robot>
