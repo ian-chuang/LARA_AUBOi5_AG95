@@ -5,7 +5,7 @@
   <xacro:include filename="$(find aubo_description)/urdf/aubo_i5_macro.xacro" />
   <xacro:include filename="$(find dh_ag95_description)/urdf/ag95_macro.xacro" />
   <xacro:include filename="$(find lara_description)/urdf/workspace/lara_workspace_macro.xacro" />
-  <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
+  <!-- <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" /> -->
 
 
   <xacro:aubo_i5 prefix="" parent="arm_mount_1" hw_interface="hardware_interface/PositionJointInterface">

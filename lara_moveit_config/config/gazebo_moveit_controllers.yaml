@@ -1,5 +1,5 @@
 controller_list:
-  - name: aubo_i5_controller
+  - name: arm_controller
     action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
     default: True
@@ -10,9 +10,9 @@ controller_list:
       - wrist_1_joint
       - wrist_2_joint
       - wrist_3_joint
-  # - name: gripper_controller
-  #   action_ns: gripper_cmd
-  #   default: True
-  #   type: GripperCommand
-  #   joints:
-  #     - left_outer_knuckle_joint
+  - name: gripper_controller
+    action_ns: gripper_cmd
+    default: True
+    type: GripperCommand
+    joints:
+      - left_outer_knuckle_joint

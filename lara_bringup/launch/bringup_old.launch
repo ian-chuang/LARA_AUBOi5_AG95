@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="robot_ip" />
+  <arg name="urdf_path" default="$(find lara_description)/urdf/lara_base_scene.xacro"/>
+
+  <!-- joint names for aubo driver -->
+  <rosparam command="load" file="$(find lara_bringup)/config/aubo_i5_joint_names.yaml" />
+  <!-- Set the robot urdf on the parameter server -->
+  <param name="robot_description" command="xacro '$(arg urdf_path)'" />
+
+
+  <!-- industrial_robot_simulator: accepts robot commands and reports status -->
+  <node pkg="aubo_controller" type="aubo_robot_simulator" name="aubo_robot_simulator"  output="screen"/>
+  
+  <!-- joint_trajectory_action: provides actionlib interface for high-level robot control -->
+  <node pkg="aubo_controller" type="aubo_joint_trajectory_action" name="aubo_joint_trajectory_action" output="screen"/>
+
+  <!-- aubo driver -->
+  <node name="aubo_driver" pkg="aubo_driver" type="aubo_driver" output="screen">
+    <param name="/server_host" type="str" value="$(arg robot_ip)" />
+  </node>
+
+  
+
+  <!-- publish the robot state (tf transforms) -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+
+  <include file="$(find lara_moveit_config)/launch/demo.launch">
+    <arg name="load_robot_description" value="false" />
+    <arg name="moveit_controller_manager" value="simple" />
+  </include>
+
+</launch>

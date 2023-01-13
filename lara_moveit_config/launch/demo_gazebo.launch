@@ -12,19 +12,10 @@
   <!-- Launch Gazebo and spawn the robot -->
   <include file="$(dirname)/gazebo.launch" pass_all_args="true"/>
 
-  <!-- <node pkg="lara_gazebo" type="gazebo_gripper_controller.py" name="gazebo_gripper_controller" output="screen">
-    <param name="action_name" value="/gripper_action_server" />
-    <param name="position_controller_topic" value="/gripper_controller" />
-    <param name="min_gap" value="0" />
-    <param name="max_gap" value="0.65" />
-    <param name="tolerance" value="0.05" />
-    <param name="timeout" value="1" />
-  </node> -->
-
   <!-- Launch MoveIt -->
   <include file="$(dirname)/demo.launch" pass_all_args="true">
     <!-- robot_description is loaded by gazebo.launch, to enable Gazebo features -->
     <arg name="load_robot_description" value="false" />
-    <arg name="moveit_controller_manager" value="simple" />
+    <arg name="moveit_controller_manager" value="gazebo" />
   </include>
 </launch>

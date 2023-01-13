@@ -1,13 +1,14 @@
 Panels:
   - Class: rviz/Displays
-    Help Height: 81
+    Help Height: 0
     Name: Displays
     Property Tree Widget:
       Expanded:
-        - /MotionPlanning1
         - /MotionPlanning1/Planning Request1
+        - /TF1
+        - /TF1/Frames1
       Splitter Ratio: 0.5
-    Tree Height: 70
+    Tree Height: 362
   - Class: rviz/Help
     Name: Help
   - Class: rviz/Views
@@ -40,7 +41,7 @@ Visualization Manager:
       Plane Cell Count: 10
       Reference Frame: <Fixed Frame>
       Value: true
-    - Acceleration_Scaling_Factor: 0.1
+    - Acceleration_Scaling_Factor: 0.03
       Class: moveit_rviz_plugin/MotionPlanning
       Enabled: true
       Move Group Namespace: ""
@@ -50,8 +51,10 @@ Visualization Manager:
       MoveIt_Allow_Sensor_Positioning: false
       MoveIt_Planning_Attempts: 10
       MoveIt_Planning_Time: 5
-      MoveIt_Use_Cartesian_Path: true
+      MoveIt_Use_Cartesian_Path: false
       MoveIt_Use_Constraint_Aware_IK: true
+      MoveIt_Warehouse_Host: 127.0.0.1
+      MoveIt_Warehouse_Port: 33829
       MoveIt_Workspace:
         Center:
           X: 0
@@ -115,22 +118,17 @@ Visualization Manager:
             Alpha: 1
             Show Axes: false
             Show Trail: false
-          left_inner_finger:
+          left_finger:
             Alpha: 1
             Show Axes: false
             Show Trail: false
             Value: true
-          left_inner_finger_pad:
+          left_finger_pad:
             Alpha: 1
             Show Axes: false
             Show Trail: false
             Value: true
           left_inner_knuckle:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          left_outer_finger:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -144,22 +142,17 @@ Visualization Manager:
             Alpha: 1
             Show Axes: false
             Show Trail: false
-          right_inner_finger:
+          right_finger:
             Alpha: 1
             Show Axes: false
             Show Trail: false
             Value: true
-          right_inner_finger_pad:
+          right_finger_pad:
             Alpha: 1
             Show Axes: false
             Show Trail: false
             Value: true
           right_inner_knuckle:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          right_outer_finger:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -216,7 +209,6 @@ Visualization Manager:
         State Display Time: 0.05 s
         Trail Step Size: 1
         Trajectory Topic: move_group/display_planned_path
-        Use Sim Time: false
       Planning Metrics:
         Payload: 1
         Show Joint Torques: false
@@ -297,22 +289,17 @@ Visualization Manager:
             Alpha: 1
             Show Axes: false
             Show Trail: false
-          left_inner_finger:
+          left_finger:
             Alpha: 1
             Show Axes: false
             Show Trail: false
             Value: true
-          left_inner_finger_pad:
+          left_finger_pad:
             Alpha: 1
             Show Axes: false
             Show Trail: false
             Value: true
           left_inner_knuckle:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          left_outer_finger:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -326,22 +313,17 @@ Visualization Manager:
             Alpha: 1
             Show Axes: false
             Show Trail: false
-          right_inner_finger:
+          right_finger:
             Alpha: 1
             Show Axes: false
             Show Trail: false
             Value: true
-          right_inner_finger_pad:
+          right_finger_pad:
             Alpha: 1
             Show Axes: false
             Show Trail: false
             Value: true
           right_inner_knuckle:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          right_outer_finger:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -393,31 +375,86 @@ Visualization Manager:
         Show Robot Collision: false
         Show Robot Visual: true
       Value: true
-      Velocity_Scaling_Factor: 0.1
-    - Class: rviz/Image
-      Enabled: false
-      Image Topic: /camera1/color/image_raw
-      Max Value: 1
-      Median window: 5
-      Min Value: 0
-      Name: Image
-      Normalize Range: true
-      Queue Size: 2
-      Transport Hint: raw
-      Unreliable: false
-      Value: false
-    - Class: rviz/Image
-      Enabled: false
-      Image Topic: /camera2/color/image_raw
-      Max Value: 1
-      Median window: 5
-      Min Value: 0
-      Name: Image
-      Normalize Range: true
-      Queue Size: 2
-      Transport Hint: raw
-      Unreliable: false
-      Value: false
+      Velocity_Scaling_Factor: 0.03
+    - Class: rviz/TF
+      Enabled: true
+      Frame Timeout: 15
+      Frames:
+        All Enabled: false
+        ag95_base_link:
+          Value: false
+        ag95_body:
+          Value: false
+        arm_mount_1:
+          Value: false
+        arm_mount_2:
+          Value: false
+        aubo_i5_base_link:
+          Value: false
+        base_mount:
+          Value: false
+        ee_link:
+          Value: false
+        forearm_link:
+          Value: false
+        gripper_tip_link:
+          Value: false
+        left_finger:
+          Value: false
+        left_finger_pad:
+          Value: false
+        manipulation_frame:
+          Value: false
+        right_finger:
+          Value: false
+        right_finger_pad:
+          Value: false
+        shoulder_link:
+          Value: false
+        table:
+          Value: false
+        teleop_link:
+          Value: true
+        upper_arm_link:
+          Value: false
+        world:
+          Value: false
+        wrist_1_link:
+          Value: false
+        wrist_2_link:
+          Value: false
+        wrist_3_link:
+          Value: false
+      Marker Scale: 1
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Tree:
+        world:
+          table:
+            base_mount:
+              arm_mount_1:
+                aubo_i5_base_link:
+                  manipulation_frame:
+                    {}
+                  shoulder_link:
+                    upper_arm_link:
+                      forearm_link:
+                        wrist_1_link:
+                          wrist_2_link:
+                            wrist_3_link:
+                              ee_link:
+                                ag95_base_link:
+                                  ag95_body:
+                                    {}
+                                gripper_tip_link:
+                                  teleop_link:
+                                    {}
+              arm_mount_2:
+                {}
+      Update Interval: 0
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -434,43 +471,41 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 1.7434062957763672
+      Distance: 3.072477340698242
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.15801656246185303
-        Y: -0.40205445885658264
-        Z: 0.8382439017295837
+        X: -0.4254937171936035
+        Y: -0.7972251772880554
+        Z: 1.0411680936813354
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: -0.044999971985816956
+      Pitch: 0.3799998164176941
       Target Frame: world
       Value: Orbit (rviz)
-      Yaw: 6.1449480056762695
+      Yaw: 5.269940376281738
     Saved: ~
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 675
+  Height: 1025
   Help:
     collapsed: false
   Hide Left Dock: false
   Hide Right Dock: false
-  Image:
-    collapsed: false
   MotionPlanning:
     collapsed: false
   MotionPlanning - Trajectory Slider:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd0000000200000000000001f00000024dfc0200000007fb000000100044006900730070006c006100790073010000003b000000d2000000c700fffffffb0000000800480065006c00700000000342000000bb0000006e00fffffffb0000000a00560069006500770073000000010c000000a4000000a000fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670100000374000001890000000000000000fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000001600000016fb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e00670100000113000001750000016900ffffff00000001000002ce00000581fc0200000002fb0000000a0049006d006100670065000000003b000005810000001600fffffffb0000000a0049006d00610067006500000002ef000002cd0000001600ffffff000003f10000024d00000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000200000000000001f3000003a7fc0200000007fb000000100044006900730070006c006100790073010000003d000001a7000000c900fffffffb0000000800480065006c00700000000342000000bb0000006e00fffffffb0000000a00560069006500770073000000010c000000a4000000a400fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670100000374000001890000000000000000fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000001600000016fb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e006701000001ea000001fa0000017d00ffffff00000001000002ce00000581fc0200000002fb0000000a0049006d006100670065000000003b000005810000000000000000fb0000000a0049006d00610067006500000002ef000002cd0000000000000000000001a6000003a700000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Views:
     collapsed: false
-  Width: 1511
-  X: 107
-  Y: 427
+  Width: 927
+  X: 67
+  Y: 27

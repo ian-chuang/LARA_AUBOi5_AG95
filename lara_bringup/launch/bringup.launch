@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="robot_ip" />
+  <arg name="urdf_path" default="$(find lara_description)/urdf/lara_base_scene.xacro" />
+
+  <!-- joint names for aubo driver -->
+  <rosparam command="load" file="$(find lara_bringup)/config/aubo_i5_joint_names.yaml" />
+  <!-- Set the robot urdf on the parameter server -->
+  <param name="robot_description" command="xacro '$(arg urdf_path)'" />
+
+  <!-- aubo driver -->
+  <node name="aubo_driver" pkg="aubo_driver" type="aubo_driver" output="screen">
+    <param name="/server_host" type="str" value="$(arg robot_ip)" />
+  </node>
+
+  <node pkg="aubo_controller" type="aubo_hardware_interface" name="aubo_hardware_interface"
+    output="screen" />
+
+  <rosparam file="$(find lara_bringup)/config/aubo_i5_controllers.yaml" command="load" />
+  <node
+    name="controller_spawner"
+    pkg="controller_manager"
+    type="controller_manager"
+    respawn="false"
+    output="screen"
+    args="spawn aubo_i5_controller joint_state_controller">
+  </node>
+
+  <node
+    name="ros_control_stopped_spawner"
+    pkg="controller_manager"
+    type="spawner"
+    respawn="false"
+    output="screen"
+    args="--stopped arm_position_controller"
+  />
+
+
+  <!-- publish the robot state (tf transforms) -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+
+  <include file="$(find lara_moveit_config)/launch/demo.launch">
+    <arg name="load_robot_description" value="false" />
+    <arg name="moveit_controller_manager" value="simple" />
+  </include>
+
+</launch>
