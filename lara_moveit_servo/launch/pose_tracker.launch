@@ -2,7 +2,7 @@
     <!-- Launch an example that sends commands via C++ API. -->
   
     <node name="servo_server" pkg="lara_moveit_servo" type="pose_tracking_server" output="screen" >
-      <rosparam command="load" file="$(find lara_moveit_servo)/config/aubo_i5_simulated_config.yaml" />
+      <rosparam command="load" file="$(find lara_moveit_servo)/config/pose_tracking_servo_config.yaml" />
       <rosparam command="load" file="$(find lara_moveit_servo)/config/pose_tracking_settings.yaml" />
     </node>
   

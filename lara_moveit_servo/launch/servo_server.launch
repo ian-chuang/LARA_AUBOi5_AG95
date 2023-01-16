@@ -1,5 +1,5 @@
 <launch>
     <node name="servo_server" pkg="moveit_servo" type="servo_server" output="screen">
-        <rosparam command="load" file="$(find lara_moveit_servo)/config/aubo_i5_simulated_config.yaml" />
+        <rosparam command="load" file="$(find lara_moveit_servo)/config/joystick_servo_config.yaml" />
     </node>
 </launch>

@@ -13,7 +13,7 @@
     <param name="/server_host" type="str" value="$(arg robot_ip)" />
   </node>
 
-  <node pkg="aubo_controller" type="aubo_hardware_interface" name="aubo_hardware_interface"
+  <node pkg="aubo_ros_control" type="aubo_hardware_interface" name="aubo_hardware_interface"
     output="screen" />
 
   <rosparam file="$(find lara_bringup)/config/aubo_i5_controllers.yaml" command="load" />

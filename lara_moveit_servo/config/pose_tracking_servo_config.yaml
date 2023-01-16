@@ -11,11 +11,11 @@ scale:
   rotational:  0.3 # Max angular velocity. Rads per publish_period. Unit is [rad/s]. Only used for Cartesian commands.
   # Max joint angular/linear velocity. Rads or Meters per publish period. Only used for joint commands on joint_command_in_topic.
   joint: 0.01
-low_pass_filter_coeff: 2.  # Larger --> trust the filtered data more, trust the measurements less.
+low_pass_filter_coeff: 30.  # Larger --> trust the filtered data more, trust the measurements less.
 
 ## Properties of outgoing commands
-publish_period: 0.008  # 1/Nominal publish rate [seconds]
-low_latency_mode: false  # Set this to true to publish as soon as an incoming Twist command is received (publish_period is ignored)
+publish_period: 0.005  # 1/Nominal publish rate [seconds]
+low_latency_mode: true  # Set this to true to publish as soon as an incoming Twist command is received (publish_period is ignored)
 
 # What type of topic does your robot driver expect?
 # Currently supported are std_msgs/Float64MultiArray (for ros_control JointGroupVelocityController or JointGroupPositionController)

@@ -48,18 +48,18 @@ gripper_position_controller:
   type: position_controllers/JointPositionController
   joint: left_outer_knuckle_joint
 
-gazebo_ros_control:
-  pid_gains:
-    # arm
-    shoulder_pan_joint: {p: 5000,  d: 200, i: 1, i_clamp: 1}
-    shoulder_lift_joint: {p: 12000,  d: 200, i: 1, i_clamp: 1}
-    elbow_joint: {p: 3000,  d: 20, i: 1, i_clamp: 1}
-    wrist_1_joint: {p: 1000,  d: 1, i: 1, i_clamp: 1}
-    wrist_2_joint: {p: 500,  d: 1, i: 1, i_clamp: 1}
-    wrist_3_joint: {p: 100,  d: 0.1, i: 0, i_clamp: 1} 
-    # gripper
-    left_outer_knuckle_joint: {p: 10,  d: 0.1, i: 1, i_clamp: 1}
-    right_outer_knuckle_joint: {p: 20,  d: 0.1, i: 1, i_clamp: 1}
+# gazebo_ros_control:
+#   pid_gains:
+#     # arm
+#     shoulder_pan_joint: {p: 5000,  d: 200, i: 1, i_clamp: 1}
+#     shoulder_lift_joint: {p: 12000,  d: 200, i: 1, i_clamp: 1}
+#     elbow_joint: {p: 3000,  d: 20, i: 1, i_clamp: 1}
+#     wrist_1_joint: {p: 1000,  d: 1, i: 1, i_clamp: 1}
+#     wrist_2_joint: {p: 500,  d: 1, i: 1, i_clamp: 1}
+#     wrist_3_joint: {p: 100,  d: 0.1, i: 0, i_clamp: 1} 
+#     # gripper
+#     left_outer_knuckle_joint: {p: 10,  d: 0.1, i: 1, i_clamp: 1}
+#     right_outer_knuckle_joint: {p: 20,  d: 0.1, i: 1, i_clamp: 1}
 
 # gazebo_ros_control:
 #   pid_gains:
