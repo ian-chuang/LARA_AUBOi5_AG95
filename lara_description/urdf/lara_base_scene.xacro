@@ -2,33 +2,41 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro"
   name="lara_base_scene">
 
+  <xacro:arg name="cameras" default="false"/>
+  
   <xacro:include filename="$(find aubo_description)/urdf/aubo_i5_macro.xacro" />
   <xacro:include filename="$(find dh_ag95_description)/urdf/ag95_macro.xacro" />
   <xacro:include filename="$(find lara_description)/urdf/workspace/lara_workspace_macro.xacro" />
   <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
 
+  <!-- world link for gazebo -->
+  <link name="world" />
 
+  <!-- arm -->
   <xacro:aubo_i5 prefix="" parent="arm_mount_1" hw_interface="hardware_interface/PositionJointInterface">
     <origin xyz="0 0 0" rpy="0 0 0" />
   </xacro:aubo_i5>
 
+  <!-- gripper -->
   <xacro:dh_ag95_gripper prefix="" parent="ee_link"
     transmission_hw_interface="hardware_interface/PositionJointInterface">
     <origin xyz="0 0 0" rpy="${pi/2}  ${pi} ${pi/2}" />
   </xacro:dh_ag95_gripper>
 
+  <!-- workspace environment -->
   <xacro:workspace parent="world" arm_mount_spacing="0.4">
     <origin xyz="0 0 0" rpy="0 0 0" />
   </xacro:workspace>
 
-  <!-- <sensor_d435 parent="world" name="camera1" publish_pointcloud="false" topics_ns="camera1">
-    <origin xyz=".75 -0.4 1.5" rpy="0 ${pi/4} ${pi}"/>
-  </sensor_d435>
-
-  <sensor_d435 parent="world" name="camera2" publish_pointcloud="false" topics_ns="camera2">
-    <origin xyz="0 1 1.2" rpy="0 0 ${-pi/2}"/>
-  </sensor_d435> -->
-
+  <!-- optional cameras -->
+  <xacro:if value="$(arg cameras)">
+    <xacro:sensor_d435 parent="world" name="camera1" publish_pointcloud="false" topics_ns="camera1">
+      <origin xyz=".75 -0.4 1.5" rpy="0 ${pi/4} ${pi}"/>
+    </xacro:sensor_d435>
+    <xacro:sensor_d435 parent="world" name="camera2" publish_pointcloud="false" topics_ns="camera2">
+      <origin xyz="0 1 1.2" rpy="0 0 ${-pi/2}"/>
+    </xacro:sensor_d435>
+  </xacro:if>
 
   <!-- Add an additional link to plan with. Oriented like the aubo_i5 ee_link frame. -->
   <link name="gripper_tip_link" />
@@ -54,10 +62,6 @@
     <child link="manipulation_frame" />
     <origin rpy="0 0 0" xyz="0 0 ${-0.045-0.0225}" />
   </joint>
-
-  <!-- world link for gazebo -->
-  <link name="world" />
-
 
   <!-- ros_control plugin -->
   <gazebo>
