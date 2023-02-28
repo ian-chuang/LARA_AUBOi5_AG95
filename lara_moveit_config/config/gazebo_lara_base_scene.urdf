@@ -53,6 +53,7 @@
         <minDepth>0.001</minDepth>
         <selfCollide>true</selfCollide>
     </gazebo>
+    <!-- <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" /> -->
     <transmission name="shoulder_pan_joint_trans">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="shoulder_pan_joint">
@@ -391,42 +392,42 @@
         <parent link="aubo_i5_base_link" />
         <child link="shoulder_link" />
         <axis xyz="0 0 1" />
-        <limit effort="150.0" lower="-3.04" upper="3.04" velocity="50" />
+        <limit effort="150.0" lower="-3.04" upper="3.04" velocity="1" />
     </joint>
     <joint name="shoulder_lift_joint" type="revolute">
         <origin rpy="-1.5708 -1.5708 0" xyz="0 0.1215 0" />
         <parent link="shoulder_link" />
         <child link="upper_arm_link" />
         <axis xyz="0 0 1" />
-        <limit effort="150.0" lower="-3.04" upper="3.04" velocity="50" />
+        <limit effort="150.0" lower="-3.04" upper="3.04" velocity="1" />
     </joint>
     <joint name="elbow_joint" type="revolute">
         <origin rpy="-3.1416 -5.1632E-18 -5.459E-16" xyz="0.408 0 0" />
         <parent link="upper_arm_link" />
         <child link="forearm_link" />
         <axis xyz="0 0 1" />
-        <limit effort="150.0" lower="-3.04" upper="3.04" velocity="50" />
+        <limit effort="150.0" lower="-3.04" upper="3.04" velocity="1" />
     </joint>
     <joint name="wrist_1_joint" type="revolute">
         <origin rpy="3.1416 -1.8323E-15 1.5708" xyz="0.376 0 0" />
         <parent link="forearm_link" />
         <child link="wrist_1_link" />
         <axis xyz="0 0 1" />
-        <limit effort="28.0" lower="-3.04" upper="3.04" velocity="50" />
+        <limit effort="28.0" lower="-3.04" upper="3.04" velocity="1" />
     </joint>
     <joint name="wrist_2_joint" type="revolute">
         <origin rpy="-1.5708 -1.8709E-15 -1.6653E-16" xyz="0 0.1025 0" />
         <parent link="wrist_1_link" />
         <child link="wrist_2_link" />
         <axis xyz="0 0 1" />
-        <limit effort="28.0" lower="-3.04" upper="3.04" velocity="50" />
+        <limit effort="28.0" lower="-3.04" upper="3.04" velocity="1" />
     </joint>
     <joint name="wrist_3_joint" type="revolute">
         <origin rpy="1.5708 0 1.7907E-15" xyz="0 -0.094 0" />
         <parent link="wrist_2_link" />
         <child link="wrist_3_link" />
         <axis xyz="0 0 1" />
-        <limit effort="28.0" lower="-3.04" upper="3.04" velocity="50" />
+        <limit effort="28.0" lower="-3.04" upper="3.04" velocity="1" />
     </joint>
     <link name="ee_link">
         <collision>
@@ -741,7 +742,7 @@
         <parent link="left_outer_knuckle" />
         <child link="left_finger" />
         <axis xyz="0.0 1.0 -0.0" />
-        <limit effort="50.0" lower="-0.01" upper="0.94" velocity="1.0" />
+        <limit effort="50.0" lower="-0.01" upper="0.94" velocity="2.0" />
         <mimic joint="left_outer_knuckle_joint" multiplier="1" offset="0" />
     </joint>
     <joint name="left_inner_knuckle_joint" type="revolute">
@@ -749,7 +750,7 @@
         <parent link="ag95_body" />
         <child link="left_inner_knuckle" />
         <axis xyz="0.0 -1.0 -0.0" />
-        <limit effort="50.0" lower="-0.01" upper="0.94" velocity="1.0" />
+        <limit effort="50.0" lower="-0.01" upper="0.94" velocity="2.0" />
         <mimic joint="left_outer_knuckle_joint" multiplier="1" offset="0" />
     </joint>
     <!-- This joint closes the kinematic loop. Since loops are not allowed in URDF, but they are
@@ -775,14 +776,14 @@
         <parent link="ag95_body" />
         <child link="left_outer_knuckle" />
         <axis xyz="-0.0 -1.0 0.0" />
-        <limit effort="50.0" lower="0" upper="0.93" velocity="1.0" />
+        <limit effort="50.0" lower="0" upper="0.93" velocity="2.0" />
     </joint>
     <joint name="right_finger_joint" type="revolute">
         <origin rpy="0 0.780005096009 0" xyz="0.055 0.0 0.0" />
         <parent link="right_outer_knuckle" />
         <child link="right_finger" />
         <axis xyz="0.0 1.0 -0.0" />
-        <limit effort="50.0" lower="-0.01" upper="0.94" velocity="1.0" />
+        <limit effort="50.0" lower="-0.01" upper="0.94" velocity="2.0" />
         <mimic joint="left_outer_knuckle_joint" multiplier="1" offset="0" />
     </joint>
     <joint name="right_inner_knuckle_joint" type="revolute">
@@ -790,7 +791,7 @@
         <parent link="ag95_body" />
         <child link="right_inner_knuckle" />
         <axis xyz="0.0 -1.0 -0.0" />
-        <limit effort="50.0" lower="-0.01" upper="0.94" velocity="1.0" />
+        <limit effort="50.0" lower="-0.01" upper="0.94" velocity="2.0" />
         <mimic joint="left_outer_knuckle_joint" multiplier="1" offset="0" />
     </joint>
     <!-- This joint closes the kinematic loop. Since loops are not allowed in URDF, but they are
@@ -925,7 +926,7 @@
         <parent link="ag95_body" />
         <child link="right_outer_knuckle" />
         <axis xyz="-0.0 -1.0 0.0" />
-        <limit effort="50.0" lower="-0.01" upper="0.94" velocity="1.0" />
+        <limit effort="50.0" lower="-0.01" upper="0.94" velocity="2.0" />
         <mimic joint="left_outer_knuckle_joint" multiplier="1" offset="0" />
     </joint>
     <joint name="gripper_base_joint" type="fixed">

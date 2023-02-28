@@ -82,7 +82,6 @@
     <disable_collisions link1="arm_mount_1" link2="table" reason="Never"/>
     <disable_collisions link1="arm_mount_2" link2="aubo_i5_base_link" reason="Never"/>
     <disable_collisions link1="arm_mount_2" link2="base_mount" reason="Adjacent"/>
-    <disable_collisions link1="arm_mount_2" link2="left_finger_pad" reason="Never"/>
     <disable_collisions link1="arm_mount_2" link2="shoulder_link" reason="Never"/>
     <disable_collisions link1="arm_mount_2" link2="table" reason="Never"/>
     <disable_collisions link1="arm_mount_2" link2="upper_arm_link" reason="Never"/>

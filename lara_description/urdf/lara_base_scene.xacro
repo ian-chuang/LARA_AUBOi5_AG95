@@ -5,7 +5,7 @@
   <xacro:include filename="$(find aubo_description)/urdf/aubo_i5_macro.xacro" />
   <xacro:include filename="$(find dh_ag95_description)/urdf/ag95_macro.xacro" />
   <xacro:include filename="$(find lara_description)/urdf/workspace/lara_workspace_macro.xacro" />
-  <!-- <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" /> -->
+  <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
 
 
   <xacro:aubo_i5 prefix="" parent="arm_mount_1" hw_interface="hardware_interface/PositionJointInterface">
@@ -63,26 +63,5 @@
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so"></plugin>
   </gazebo>
-
-  <!-- gazebo grasp plugin -->
-  <!-- <gazebo>
-    <plugin name="gazebo_grasp_fix" filename="libgazebo_grasp_fix.so">
-      <arm>
-        <arm_name>aubo_i5_ag95</arm_name>
-        <palm_link>wrist_3_link</palm_link>
-        <gripper_link>left_finger</gripper_link>
-        <gripper_link>right_finger</gripper_link>
-        <gripper_link>left_inner_knuckle</gripper_link>
-        <gripper_link>right_inner_knuckle</gripper_link>
-      </arm>
-      <forces_angle_tolerance>90</forces_angle_tolerance>
-      <update_rate>30</update_rate>
-      <grip_count_threshold>1</grip_count_threshold>
-      <max_grip_count>3</max_grip_count>
-      <release_tolerance>0.004</release_tolerance>
-      <disable_collisions_on_attach>false</disable_collisions_on_attach>
-      <contact_topic>__default_topic__</contact_topic>
-    </plugin>
-  </gazebo> -->
 
 </robot>
