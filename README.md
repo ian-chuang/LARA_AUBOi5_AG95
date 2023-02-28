@@ -28,11 +28,11 @@ ROS packages for running Aubo i5 with DH Robotics AG95 gripper with Moveit and G
   
   # Clone gazebo plugins
   cd ~/catkin_ws/src
-  mkdir gazebo_plugins
-  cd gazebo_plugins
-  git clone https://github.com/ian-chuang/gazebo-pkgs.git # grasping fix plugin
+  mkdir gazebo_pkgs
+  cd gazebo_pkgs
   git clone https://github.com/roboticsgroup/roboticsgroup_upatras_gazebo_plugins.git # mimic joint plugin
   git clone https://github.com/pal-robotics/realsense_gazebo_plugin.git -b melodic-devel # realsense simulation plugin
+  git clone https://github.com/ian-chuang/gazebo_gripper_action_controller.git # modified gripper action controller for gazebo
   
   # Install MoveIt from source
   cd ~/catkin_ws/src
@@ -72,10 +72,10 @@ ROS packages for running Aubo i5 with DH Robotics AG95 gripper with Moveit and G
 
   ```
   # launch simulation and moveit 
-  roslaunch lara_moveit_config demo_gazebo.launch
+  roslaunch lara_moveit_config demo_gazebo.launch cameras:=true
   
   # spawn box in simulation
-  roslaunch lara_description spawn_box.launch
+  roslaunch lara_description spawn_parts.launch
   
   # run pick routine
   rosrun lara_manipulation pick_and_place.py
@@ -90,7 +90,7 @@ ROS packages for running Aubo i5 with DH Robotics AG95 gripper with Moveit and G
   rosservice call /controller_manager/switch_controller "start_controllers:
   - 'arm_position_controller'
   stop_controllers:
-  - 'arm_controller'
+  - 'arm_trajectory_controller'
   strictness: 2"
   
   # Run realtime servoing server
