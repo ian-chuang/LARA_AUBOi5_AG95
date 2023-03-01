@@ -1,0 +1,27 @@
+<launch>
+
+
+    <arg name="GripperID" default="1"/>
+    <arg name="GripperModel" default="AG95_MB"/>
+    <arg name="Connectport" default="/dev/ttyUSB0"/>
+    <arg name="Baudrate" default="115200"/>
+    <node pkg="dh_gripper_driver" type="dh_gripper_driver" name="dh_gripper_driver" respawn="true" output="screen">
+        <param name="Gripper_ID" type="string" value="$(arg GripperID)" />
+        <param name="Gripper_Model" type="string" value="$(arg GripperModel)" />
+        <param name="Connect_port" type="string" value="$(arg Connectport)" />
+        <param name="BaudRate"  type="string" value="$(arg Baudrate)" />
+    </node>
+
+
+
+
+    <node pkg="aubo_driver" type="teach_controller" name="aubo_teach_controller" output="screen">
+    </node>
+
+    <param name="joy_node/dev" type="str" value="/dev/input/js1" />
+    <node pkg="joy" type="joy_node" name="joy_node" respawn="true" output="screen">
+    </node>
+
+    <node pkg="lara_teleop" type="aubo_joy_teleop.py" name="aubo_joy_teleop" output="screen">
+    </node>
+</launch>
