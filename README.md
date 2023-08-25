@@ -2,6 +2,12 @@
 
 Welcome to the **LARA_AUBOi5_AG95** repository! This repository contains ROS packages designed for running the Aubo i5 robot with the DH Robotics AG95 gripper. The primary focus of this repository is to provide tools and resources for experimenting with pick and place tasks using the Moveit motion planning framework and simulating in Gazebo. The project was developed within the context of the LARA lab.
 
+Check out some cool videos showcasing the environment in action:
+
+![Aubo Gazebo Pick and Place](media/aubo_gazebo.gif)
+
+![Aubo Meta Quest 2 Hand Controller Teleoperation](media/aubo_vr.gif)
+
 ## Features
 
 - Integration of Aubo i5 robot with DH Robotics AG95 gripper.
@@ -13,14 +19,6 @@ Welcome to the **LARA_AUBOi5_AG95** repository! This repository contains ROS pac
 ## Note
 
 Please note that this repository is not actively maintained. It was created during a learning phase while exploring the capabilities of ROS (Robot Operating System) and experimenting with robotics concepts. As a result, the code and documentation provided here might be incomplete or outdated. While the content remains available for reference and inspiration, there are no guarantees of ongoing updates or support.
-
-## Videos
-
-Check out some cool videos showcasing the environment in action:
-
-![Aubo Gazebo Pick and Place](media/aubo_gazebo.gif)
-
-![Aubo Meta Quest 2 Hand Controller Teleoperation](media/aubo_vr.gif)
 
 ## Tutorial
 
